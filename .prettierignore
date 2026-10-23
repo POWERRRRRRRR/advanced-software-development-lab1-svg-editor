@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+artifacts
+package-lock.json
+phase_cli_1.md
+doc/engineering/evidence
