@@ -5,3 +5,5 @@ artifacts/
 .DS_Store
 .env
 *.tmp
+/flowchart.svg
+/demo.svg
