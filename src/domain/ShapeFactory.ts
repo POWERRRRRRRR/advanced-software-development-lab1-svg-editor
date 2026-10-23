@@ -9,6 +9,7 @@ import { Text } from './Text.js';
 
 type Definition = {
   geometry: readonly string[];
+  fallback?: Readonly<Record<string, string>>;
   optionalStyle?: string;
   content?: boolean;
   build: (
@@ -41,6 +42,7 @@ export class ShapeFactory {
       'ellipse',
       {
         geometry: ['cx', 'cy', 'rx', 'ry'],
+        fallback: { rx: 'ry', ry: 'rx' },
         optionalStyle: 'fill',
         build: (id, v, s) => new Ellipse(id, v[0]!, v[1]!, v[2]!, v[3]!, s),
       },
@@ -102,7 +104,9 @@ export class ShapeFactory {
     for (const key of Object.keys(attributes)) {
       if (!allowed.includes(key)) throw new Error(`unsupported SVG attribute: ${key}`);
     }
-    const values = definition.geometry.map((name) => Numbers.parse(attributes[name] ?? '0', name));
+    const values = definition.geometry.map((name) =>
+      Numbers.parse(attributes[name] ?? attributes[definition.fallback?.[name] ?? ''] ?? '0', name),
+    );
     const styles = Object.fromEntries(
       Shape.presentationAttributes
         .filter((name) => attributes[name] !== undefined)

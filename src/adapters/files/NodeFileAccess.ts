@@ -1,4 +1,4 @@
-import { open, readFile, rename, stat, unlink } from 'node:fs/promises';
+import { open, readFile, rename, lstat, unlink } from 'node:fs/promises';
 import type { FileAccess } from './FileAccess.js';
 
 export class NodeFileAccess implements FileAccess {
@@ -7,7 +7,7 @@ export class NodeFileAccess implements FileAccess {
   }
   async mode(path: string): Promise<number | undefined> {
     try {
-      const info = await stat(path);
+      const info = await lstat(path);
       if (!info.isFile() || !(info.mode & 0o222))
         throw new Error('destination is not a writable regular file');
       return info.mode & 0o777;
