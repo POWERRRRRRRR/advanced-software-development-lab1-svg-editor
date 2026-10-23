@@ -38,3 +38,11 @@
 验证：`npm run check` 通过，26 项测试。所有编辑操作均检查执行→撤销→重做后的完整结构与属性一致；递归处理中途溢出、失败读写、失败编辑和新编辑清空 redo 均覆盖。BUG-001（#9）已修复并回归。自查：领域无 IO 依赖，命令按独立类实现。阶段工作项 #3；领域阶段已通过 PR #7 合并。
 
 EXP-002：实际运行 XMLParser/XMLBuilder 探针，preserveOrder 保留 g 内文本与 rect 顺序；parseTagValue=false、trimValues=false 保留中文/前后空白，CDATA 与实体解码后正确合并；XMLBuilder 正确转义 & 和 <。后续转为持久化回归测试。
+
+## 阶段 3：SVG 与文件持久化（2026-10-23）
+
+实现有序 XML codec、显式 id 预扫描、六种图形共享工厂、样式继承与支持子集规范化、translate/正等比 scale/viewBox 映射。XML 使用紧凑输出，避免 pretty print 给 text 插入额外空白。原子保存先创建同目录唯一临时文件、写入并 sync，然后 rename；覆盖时保留权限。
+
+实际测试注入 partial-write 和 rename 失败，原目标内容保持 original，目录无临时残留；实际测试缺失目录、只读目标、非法 SVG 与失败后 redo。自查还发现显式 font-size=inherit 不能直接交给数值解析，先移除原始 presentation 属性并从已解析样式重建，增加对应回归用例。
+
+阶段检查：`npm run check` 通过，54 项测试。已覆盖全部图形顺序/实体/中文/空白往返、未来显式 id 冲突、嵌套变换和文字线宽、CSS 继承、box 降级，以及明确拒绝不支持特性。无第三方人工评审。工作项 #4，命令阶段 PR #10 已合并。
