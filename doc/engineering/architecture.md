@@ -48,6 +48,10 @@ SvgDocument --> Shapes
 @enduml
 ```
 
+![已渲染组件图](architecture.svg)
+
+图源 [architecture.puml](architecture.puml)，已实际渲染。
+
 ## 模式与接口
 
 - Composite：Shape 的 move/scale/set/clone；Group 管理子节点递归处理，叶子封装几何属性。
@@ -78,3 +82,7 @@ SvgDocument --> Shapes
 ## 评审方式
 
 当前为单人项目，由 Codex 执行实现与自查，自动测试提供独立于操作结果的断言。没有外部人员审批或独立人工评审，不将自查描述为第三方评审。
+
+## 最终一致性检查
+
+实际目录与上述四层一致。AST 检查逐文件导入和类名/文件名，核心无 IO/第三方依赖；源码复核没有其他 shape/command 名称分派。应用端口由适配层实现，DTO 只用于边界，不替代领域对象。课程提交文档包含完整汇总。

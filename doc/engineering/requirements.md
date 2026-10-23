@@ -1,23 +1,29 @@
 # 需求与验收矩阵
 
-基线：`phase_cli_1.md`，2026-10-23。附件原文保留，不由项目代码重写。状态随阶段更新；测试路径与 PR 链接在实现后登记。
+基线：`phase_cli_1.md`，2026-10-23。原文保持不变。下面的实现路径均相对 src，测试均相对 tests；正式发布定位为 final 标签。
 
-| ID     | 来源             | 验收条件                                                     | 状态 / 证据 |
-| ------ | ---------------- | ------------------------------------------------------------ | ----------- |
-| REQ-01 | §2、§6           | `svg>` REPL、双引号、整行注释、中文、命令错误后继续          | 待实现      |
-| REQ-02 | §3 文档类        | init/read/save/canvas；默认 800×600；路径绑定；错误原子性    | 待实现      |
-| REQ-03 | §4.1             | 六种图形、可选颜色、`in` 归属、未知类型拒绝                  | 待实现      |
-| REQ-04 | §3、§4.1         | delete/move/scale/set；几何与样式白名单；容器统一操作        | 待实现      |
-| REQ-05 | §3、§4.2         | group/ungroup/addto/front/back；顺序、循环检查、根级解组限制 | 待实现      |
-| REQ-06 | §4.3             | 命令级 undo/redo、新编辑清空 redo、成功 IO 历史屏障          | 待实现      |
-| REQ-07 | §5               | tree 内联属性、tree 子树、show 含父级、help 全命令           | 待实现      |
-| REQ-08 | §2、§4.2         | 唯一大小写敏感 id；缺失 id 警告且避开全部显式 id             | 待实现      |
-| REQ-09 | §2、§4.2         | `error:` 单行错误；失败不改变文档、路径和历史                | 待实现      |
-| REQ-10 | §2.1             | 封装、多态、一类一文件；仅命令表和图形工厂两处名称分派       | 待实现      |
-| REQ-11 | §1.2             | 架构、PlantUML 图、模式、依赖、变化点、过程和自查            | 进行中      |
-| REQ-12 | §1.1             | 分步 Git 历史、远端私有仓库、截止前 final 标签               | 进行中      |
-| REQ-13 | 用户确认扩展     | translate、正等比 scale、嵌套、文字样式、viewBox 规范化      | 待实现      |
-| REQ-14 | 用户工程流程要求 | 技术实验、ADR、Issue/PR、CI、缺陷、阶段总结、发布证据        | 进行中      |
+| ID     | 来源             | 验收条件                                             | 实现位置                                               | 验证证据                                   | 状态                     |
+| ------ | ---------------- | ---------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------ | ------------------------ |
+| REQ-01 | §2、§6           | REPL、双引号、整行注释、中文、EOF 和错误后继续       | adapters/cli                                           | cli.test.ts                                | 完成                     |
+| REQ-02 | §3 文档类        | init/read/save/canvas、默认画布、路径绑定和原子保存  | application/commands + adapters/files                  | commands.test.ts、svg.test.ts              | 完成                     |
+| REQ-03 | §4.1             | 六种图形、可选颜色、in 归属、未知类型拒绝            | domain/ShapeFactory + CreateCommand                    | domain.test.ts、commands.test.ts           | 完成                     |
+| REQ-04 | §3、§4.1         | delete/move/scale/set、几何白名单、容器统一操作      | domain + application/commands                          | domain.test.ts、commands.test.ts           | 完成                     |
+| REQ-05 | §3、§4.2         | group/ungroup/addto/front/back、顺序和环检查         | domain/SvgDocument                                     | domain.test.ts、commands.test.ts           | 完成                     |
+| REQ-06 | §4.3             | 命令级历史、新编辑清空 redo、IO 屏障、失败不影响历史 | application/EditCommand、History、EditorSession        | commands.test.ts、svg.test.ts              | 完成                     |
+| REQ-07 | §5               | tree 内联属性/子树、show 父级明细、help              | TreePresenter + commands                               | cli.test.ts                                | 完成                     |
+| REQ-08 | §2、§4.2         | 唯一大小写敏感 id、缺失 id 警告且避开未来显式 id     | SvgDocument + SvgCodec                                 | domain.test.ts、svg.test.ts                | 完成                     |
+| REQ-09 | §2、§4.2         | error 单行、失败不改变文档/路径/历史                 | CliController + EditorSession + FileDocumentRepository | commands.test.ts、svg.test.ts、cli.test.ts | 完成                     |
+| REQ-10 | §2.1             | 封装、多态、一类一文件、两处名称分派                 | 四层 src                                               | architecture.test.ts + 源码自查            | 完成                     |
+| REQ-11 | §1.2             | 架构、图、模式、依赖、变化点、过程和一致性自查       | doc/README.md + engineering                            | 本文件与架构图渲染                         | 完成                     |
+| REQ-12 | §1.1             | 分步历史、私有远端、截止前 final                     | Git 历史与注解标签                                     | 发布阶段创建并推送 final；标签消息记录 SHA | 完成（发布定位见 final） |
+| REQ-13 | 用户确认         | 平移/正等比缩放/继承/文字样式/viewBox                | adapters/svg                                           | svg.test.ts + 变换前后 PNG 字节一致        | 完成                     |
+| REQ-14 | 用户工程流程要求 | 需求、ADR、实验、缺陷、评审、CI 状态、发布证据       | doc/engineering + CONTRIBUTING + scripts               | 工程记录、PR #7/#10/#11/#12、验证原始日志  | 完成                     |
+
+## 验证版本与提交
+
+候选代码提交：`1941abbbafe55964d2a9568bec9f6876fedf849a`。本地干净克隆中 npm ci 后，Node 22.23.4 与 24.22.1 均完成 63 项测试、类型/规范/格式检查、构建和编译产物冒烟。原始结果见 evidence/clean-checkout.json 与 node-22.log、node-24.log。
+
+托管 CI 因账户账单/额度未启动，RISK-001 保持开放；此限制不被写成 CI 通过。ADR-005 记录替代门槛。需求完成不代表远端环境阻塞已解除。
 
 ## 已确定的歧义处理
 
@@ -31,3 +37,6 @@
 - 不支持的可绘制 SVG 特性报错，绝不静默丢失。box 标记可降级 g，仍不允许 create box。
 - CLI scale 按附件仅缩放几何值；导入 SVG transform 同时缩放线宽和字号以保留外观。
 - 脚本回放继续处理错误，存在错误时最终退出码非零；EOF 正常退出，Ctrl-C 结束交互。
+
+- 保存目标必须为普通可写文件或新路径；拒绝符号链接，防止原子重命名替换链接本身。
+- 外部 ellipse 单独提供 rx 或 ry 时，另一半径遵循 SVG 默认值回退。

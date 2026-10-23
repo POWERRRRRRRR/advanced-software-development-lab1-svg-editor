@@ -67,3 +67,9 @@ EXP-002：实际运行 XMLParser/XMLBuilder 探针，preserveOrder 保留 g 内�
 - PlantUML 源最初单行 package 成员写法经真正渲染发现语法错误，改为多行声明；在线 PlantUML 成功生成 architecture.svg（保留 architecture.puml 可复现）。本地未安装 Java，因此没有声称本地 Java 渲染通过。
 - 导入边界探针发现 BUG-002/003，修复及回归见 defects.md；另补全 SVG transform 列表逗号分隔，保存覆盖符号链接明确拒绝，避免替换链接本身。
 - 初步 Node 22.23.4 全套 60 项检查通过；修复完成后将按最终提交重新进行干净检出 Node 22/24 验证并保存日志。
+
+### 干净检出与交付整理
+
+ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全新 clone，npm ci 后在 Node 22.23.4 与 24.22.1 都通过 63 项测试、类型/规范/格式/构建及编译入口冒烟；未跳过测试。原始安装和两运行时日志提交到 evidence。
+
+完成根 README 与可独立阅读的课程 doc/README（包含原始需求地址、完整架构/PlantUML、模式、变化点、过程、自查、实际质量证据）、追踪矩阵、验证和发布复盘。AGENTS/CONTRIBUTING 固化后续开发要求。所有功能缺陷已修复，外部 CI 账户风险保持开放。最后仅补文档与证据，发布通过 final 注解标签定位实际提交，不内嵌文档自身哈希。
