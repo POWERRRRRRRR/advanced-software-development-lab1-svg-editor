@@ -26,3 +26,15 @@
 ### RISK-001：远端 CI 未启动
 
 基线运行 39943255667 的两个 job 无执行步骤。GitHub check annotations 明确提示账户付款失败或消费额度需要提高。未修改账户账单或仓库可见性；远端 CI 不能标为通过。后续以本地 Node 22/24 全套检查补充可复现证据，发布报告披露此环境限制。
+
+### BUG-001：编辑命令的异步失败契约
+
+命令测试实际发现：EditCommand.execute 使用 Promise.resolve(session.edit(...))，参数求值时同步抛错，违反声明的 Promise 失败契约。改成 async 方法，由 Promise rejection 统一传递失败；保留测试以覆盖重复 id、未知属性和递归溢出。文档与历史原子性设计无需改变。
+
+## 阶段 2：命令与历史（2026-10-23）
+
+实现 19 条命令的独立类、CommandFactory、EditorSession、History 和持久化/展示端口。成功 IO 清除旧历史并设屏障，失败不修改会话；查询返回文档副本避免泄漏历史引用。
+
+验证：`npm run check` 通过，26 项测试。所有编辑操作均检查执行→撤销→重做后的完整结构与属性一致；递归处理中途溢出、失败读写、失败编辑和新编辑清空 redo 均覆盖。BUG-001（#9）已修复并回归。自查：领域无 IO 依赖，命令按独立类实现。阶段工作项 #3；领域阶段已通过 PR #7 合并。
+
+EXP-002：实际运行 XMLParser/XMLBuilder 探针，preserveOrder 保留 g 内文本与 rect 顺序；parseTagValue=false、trimValues=false 保留中文/前后空白，CDATA 与实体解码后正确合并；XMLBuilder 正确转义 & 和 <。后续转为持久化回归测试。
