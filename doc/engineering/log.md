@@ -16,3 +16,13 @@
 - GitHub 连接器可识别账号，但对新私有仓库创建 Issue 返回 404。转用本机已授权的 gh CLI 维护该仓库，不更改隐私或权限。
 
 基线本地验证：类型检查、ESLint、Prettier、架构测试和构建已通过（仅验证当前工程骨架，不代表功能完成）。Issue：[#1](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/issues/1)。
+
+## 阶段 1：领域模型（2026-10-23）
+
+实现 Shape/GeometryShape、六种图形、统一工厂与 SvgDocument；封装属性，使用多态复制和容器递归。分组以最近公共父级与原绘制顺序处理，拒绝祖先后代混选；附件要求根级容器不可解组。
+
+实际检查：`npm run check` 通过，10 项测试（含架构检查）。覆盖所有叶子几何、白名单、数值拒绝、克隆隔离、id/环、分组/解组/归属/顺序。Code review：Codex 自查，无独立人工评审。工作项 #2。
+
+### RISK-001：远端 CI 未启动
+
+基线运行 39943255667 的两个 job 无执行步骤。GitHub check annotations 明确提示账户付款失败或消费额度需要提高。未修改账户账单或仓库可见性；远端 CI 不能标为通过。后续以本地 Node 22/24 全套检查补充可复现证据，发布报告披露此环境限制。

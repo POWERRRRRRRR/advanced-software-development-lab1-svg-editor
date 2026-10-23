@@ -15,3 +15,8 @@
 ## 发布门槛
 
 类型/规范/格式/测试/构建全部成功；Node 22/24 CI 成功；干净检出可复现；需求矩阵完成；未解决限制披露；final 指向已验证提交。
+
+## 当前实际结果
+
+- 领域阶段 `npm run check`：10 项测试及类型、规范、格式、构建通过。
+- 远端 CI 基线运行 [39943255667](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/actions/runs/39943255667)：账户付款/消费额度阻止 job 启动，Node 22/24 均未执行。发布替代门槛见 ADR-005，不能将此 CI 标为通过。
