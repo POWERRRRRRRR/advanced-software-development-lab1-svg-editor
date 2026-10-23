@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-10-23T11:36:35.569Z",
+  "node": "v26.7.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "gcExposed": true,
+  "notes": "7 clone samples (no discarded warm-up); 20 edits with retained history; means are observations, not an SLA. Includes assertions for full undo and redo.",
+  "results": [
+    {
+      "shapes": 100,
+      "edits": 20,
+      "cloneMedianMs": 0.3199170000000038,
+      "editTotalMs": 4.895415999999983,
+      "editMeanMs": 0.24477079999999915,
+      "undoMeanMs": 0.13499795000000034,
+      "redoMeanMs": 0.12866250000000007,
+      "heapDeltaMiB": 1.215087890625
+    },
+    {
+      "shapes": 1000,
+      "edits": 20,
+      "cloneMedianMs": 1.0736670000000004,
+      "editTotalMs": 29.939459,
+      "editMeanMs": 1.49697295,
+      "undoMeanMs": 0.9820645999999996,
+      "redoMeanMs": 0.9302999999999997,
+      "heapDeltaMiB": 11.151092529296875
+    },
+    {
+      "shapes": 10000,
+      "edits": 20,
+      "cloneMedianMs": 10.891999999999996,
+      "editTotalMs": 303.68825000000004,
+      "editMeanMs": 15.184412500000002,
+      "undoMeanMs": 10.161695850000001,
+      "redoMeanMs": 10.140139600000003,
+      "heapDeltaMiB": 108.3924789428711
+    }
+  ]
+}

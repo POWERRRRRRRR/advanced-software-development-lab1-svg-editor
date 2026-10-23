@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-23T11:47:41.902Z",
+  "browser": "Google Chrome 155.0.8059.86",
+  "method": "Isolated local Chrome headless CLI. Browser connector bootstrap failed before browser selection; no user browser profile accessed.",
+  "viewport": [
+    900,
+    650
+  ],
+  "results": [
+    {
+      "input": "examples/flowchart.svg",
+      "screenshot": "flowchart.png"
+    },
+    {
+      "input": "examples/transforms.svg",
+      "screenshot": "transforms.png"
+    },
+    {
+      "input": "examples/transforms-normalized.svg",
+      "screenshot": "transforms-normalized.png"
+    },
+    {
+      "input": "doc/engineering/architecture.svg",
+      "screenshot": "architecture.png"
+    }
+  ]
+}

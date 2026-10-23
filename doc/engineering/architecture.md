@@ -14,22 +14,37 @@
 ```plantuml
 @startuml
 skinparam componentStyle rectangle
-package "bootstrap" { [Main] }
-package "adapters" { [CLI] [SVG codec] [File repository] }
-package "application" { [Commands] [EditorSession] [History] interface DocumentRepository }
-package "domain" { [SvgDocument] [Shape / Group / Leaves] [ShapeFactory] }
-[Main] --> [CLI]
-[Main] --> [File repository]
-[CLI] --> [Commands]
-[Commands] --> [EditorSession]
-[EditorSession] --> [History]
-[EditorSession] --> DocumentRepository
-[File repository] ..|> DocumentRepository
-[File repository] --> [SVG codec]
-[SVG codec] --> [ShapeFactory]
-[Commands] --> [ShapeFactory]
-[EditorSession] --> [SvgDocument]
-[SvgDocument] --> [Shape / Group / Leaves]
+package "bootstrap" {
+  component Main
+}
+package "adapters" {
+  component CLI
+  component "SVG Codec" as Codec
+  component "File Repository" as Files
+}
+package "application" {
+  component Commands
+  component EditorSession
+  component History
+  interface DocumentRepository
+}
+package "domain" {
+  component SvgDocument
+  component "Shape / Group / Leaves" as Shapes
+  component ShapeFactory
+}
+Main --> CLI
+Main --> Files
+CLI --> Commands
+Commands --> EditorSession
+EditorSession --> History
+EditorSession --> DocumentRepository
+Files ..|> DocumentRepository
+Files --> Codec
+Codec --> ShapeFactory
+Commands --> ShapeFactory
+EditorSession --> SvgDocument
+SvgDocument --> Shapes
 @enduml
 ```
 
