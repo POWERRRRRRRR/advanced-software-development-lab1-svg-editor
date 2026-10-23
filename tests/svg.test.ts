@@ -1,5 +1,15 @@
 import assert from 'node:assert/strict';
-import { chmod, mkdtemp, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import {
+  chmod,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  stat,
+  symlink,
+  lstat,
+  writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
@@ -221,4 +231,53 @@ test('SVG: explicit numeric inherit resolves without parsing inherit as a length
   );
   assert.equal(document.find('t').attributes['font-size'], '40');
   assert.equal(document.find('t').attributes['stroke-width'], '6');
+});
+
+test('SVG: undeclared entities and invalid XML references are rejected, CDATA is literal', () => {
+  for (const content of ['&bogus;', '&#0;', '&#xD800;', '&#x110000;']) {
+    assert.throws(() => codec.decode(svg(`<text id="t">${content}</text>`)));
+  }
+  assert.equal(
+    codec
+      .decode(svg('<text id="t"><![CDATA[&bogus; <!DOCTYPE literal>]]></text>'))
+      .document.find('t').text,
+    '&bogus; <!DOCTYPE literal>',
+  );
+  assert.equal(
+    codec.decode(svg('<text id="t">&#x1F600; &quot; &apos;</text>')).document.find('t').text,
+    `😀 " '`,
+  );
+  assert.equal(
+    codec.decode(svg('<text id="t">&amp;#x1F600;</text>')).document.find('t').text,
+    '&#x1F600;',
+  );
+});
+
+test('SVG: ellipse auto radius and comma-separated transform lists preserve SVG defaults', () => {
+  const document = codec.decode(
+    svg(
+      '<ellipse id="x" rx="3"/><ellipse id="y" ry="4"/><rect id="r" x="1" transform="translate(10,20), scale(2)"/>',
+    ),
+  ).document;
+  assert.equal(document.find('x').attributes.ry, '3');
+  assert.equal(document.find('y').attributes.rx, '4');
+  assert.equal(document.find('r').attributes.x, '12');
+  assert.equal(document.find('r').attributes.y, '20');
+  assert.throws(() => UniformTransform.parse('scale(2),'));
+  assert.throws(() => UniformTransform.parse('scale(2),,translate(1)'));
+});
+
+test('files: saving over a symlink is rejected without replacing the link or target', async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), 'svg-link-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const target = join(directory, 'target.svg');
+  const link = join(directory, 'link.svg');
+  await writeFile(target, 'original');
+  await symlink(target, link);
+  await assert.rejects(
+    new FileDocumentRepository().write(link, new SvgDocument()),
+    /cannot write file/,
+  );
+  assert.equal((await lstat(link)).isSymbolicLink(), true);
+  assert.equal(await readFile(target, 'utf8'), 'original');
 });

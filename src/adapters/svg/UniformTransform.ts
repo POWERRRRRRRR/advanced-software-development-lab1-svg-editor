@@ -48,6 +48,11 @@ export class UniformTransform {
         result = result.compose(new UniformTransform(parameters[0]!));
       }
       position = token.lastIndex;
+      const separator = source.slice(position).match(/^\s*,\s*/);
+      if (separator) {
+        position += separator[0].length;
+        if (position === source.length) throw new Error('invalid trailing transform separator');
+      }
     }
     return result;
   }

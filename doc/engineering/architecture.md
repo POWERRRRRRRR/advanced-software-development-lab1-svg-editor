@@ -14,24 +14,43 @@
 ```plantuml
 @startuml
 skinparam componentStyle rectangle
-package "bootstrap" { [Main] }
-package "adapters" { [CLI] [SVG codec] [File repository] }
-package "application" { [Commands] [EditorSession] [History] interface DocumentRepository }
-package "domain" { [SvgDocument] [Shape / Group / Leaves] [ShapeFactory] }
-[Main] --> [CLI]
-[Main] --> [File repository]
-[CLI] --> [Commands]
-[Commands] --> [EditorSession]
-[EditorSession] --> [History]
-[EditorSession] --> DocumentRepository
-[File repository] ..|> DocumentRepository
-[File repository] --> [SVG codec]
-[SVG codec] --> [ShapeFactory]
-[Commands] --> [ShapeFactory]
-[EditorSession] --> [SvgDocument]
-[SvgDocument] --> [Shape / Group / Leaves]
+package "bootstrap" {
+  component Main
+}
+package "adapters" {
+  component CLI
+  component "SVG Codec" as Codec
+  component "File Repository" as Files
+}
+package "application" {
+  component Commands
+  component EditorSession
+  component History
+  interface DocumentRepository
+}
+package "domain" {
+  component SvgDocument
+  component "Shape / Group / Leaves" as Shapes
+  component ShapeFactory
+}
+Main --> CLI
+Main --> Files
+CLI --> Commands
+Commands --> EditorSession
+EditorSession --> History
+EditorSession --> DocumentRepository
+Files ..|> DocumentRepository
+Files --> Codec
+Codec --> ShapeFactory
+Commands --> ShapeFactory
+EditorSession --> SvgDocument
+SvgDocument --> Shapes
 @enduml
 ```
+
+![已渲染组件图](architecture.svg)
+
+图源 [architecture.puml](architecture.puml)，已实际渲染。
 
 ## 模式与接口
 
@@ -63,3 +82,7 @@ package "domain" { [SvgDocument] [Shape / Group / Leaves] [ShapeFactory] }
 ## 评审方式
 
 当前为单人项目，由 Codex 执行实现与自查，自动测试提供独立于操作结果的断言。没有外部人员审批或独立人工评审，不将自查描述为第三方评审。
+
+## 最终一致性检查
+
+实际目录与上述四层一致。AST 检查逐文件导入和类名/文件名，核心无 IO/第三方依赖；源码复核没有其他 shape/command 名称分派。应用端口由适配层实现，DTO 只用于边界，不替代领域对象。课程提交文档包含完整汇总。

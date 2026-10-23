@@ -1,20 +1,79 @@
 # 高级软件开发技术 · Lab1 SVG 编辑器
 
-仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。
+TypeScript 面向对象 SVG 命令行编辑器，提供六种图形、嵌套容器、全部编辑命令、撤销重做、真实 SVG 读写和常见 SVG 导入规范化。
 
-TypeScript 面向对象 SVG 命令行编辑器。需求来源：[课程附件](phase_cli_1.md)。
+仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。课程交付定位：`final` 标签；版本：`0.1.0`。
 
-## 开发与验证
+## 安装运行
 
-要求 Node.js 22+，建议 Node.js 24。使用 `npm ci` 安装锁定依赖。
+要求 Node.js **22.13+**，建议 Node.js 24。
 
 ```sh
+npm ci
 npm run cli
-npm run check
+```
+
+```text
+svg> init 800 600
+svg> create g scene
+svg> create rect r1 20 30 160 60 #4a90d9 in scene
+svg> create text label 40 65 "开始" in scene
+svg> move scene 30 0
+svg> undo
+svg> tree
+svg> save demo.svg
+```
+
+Ctrl-D（EOF）或 Ctrl-C 结束交互。SVG 可直接在浏览器打开。
+
+```sh
+# 回放两节点流程图，保存 flowchart.svg
+npm run cli < examples/flowchart.commands
+# 编译后运行
 npm run build
 npm start
 ```
 
-当前为工程基线阶段，CLI 将随功能阶段落地；各阶段状态见工程日志。
+## 命令与约定
 
-[课程提交文档](doc/README.md) · [需求与验收](doc/engineering/requirements.md) · [架构](doc/engineering/architecture.md) · [工程日志](doc/engineering/log.md) · [验证报告](doc/engineering/verification.md) · [发布报告](doc/engineering/release.md)
+| 类别 | 命令                                   |
+| ---- | -------------------------------------- |
+| 文档 | init / read / save / canvas            |
+| 编辑 | create / delete / move / scale / set   |
+| 层级 | group / ungroup / addto / front / back |
+| 查询 | tree / show / help                     |
+| 历史 | undo / redo                            |
+
+输入 `help` 查看全部语法，完整规范见 [课程附件](phase_cli_1.md)。`create box` 属后续插件阶段，首版明确拒绝。
+
+带空格参数用双引号；支持引号和反斜线转义。仅整行首个非空字符为 `#` 时是注释，`#ffffff` 等颜色保留。脚本中的错误写 stderr 并继续处理，最终退出 1；全部成功退出 0。
+
+成功的 init/read/save/canvas 修改设立历史屏障；查询和失败命令不改变历史。失败命令保护文档、绑定路径和历史。附件要求根级容器不可 ungroup，首版遵循该规则。
+
+## 验证与证据
+
+```sh
+npm run check           # 类型、规范、格式、测试、构建
+npm run benchmark       # 100/1000/10000 图形的快照/历史实验
+npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
+```
+
+63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
+
+**GitHub Actions 状态：账户账单/消费额度阻止任务启动。** CI 配置已提交，不能声称托管 CI 已通过。环境限制与替代验证记录见 ADR-005。
+
+## SVG 兼容范围
+
+支持 rect/circle/ellipse/line/text/g，规定的几何和绘制属性；另外支持嵌套 translate/正等比 scale、默认 viewBox 映射、受支持行内样式和继承，以及 font-size/font-family/font-weight/text-anchor。长度支持数值及 px。
+
+导入规范化保留当前外观和容器结构。旋转、非等比缩放、path、外部 CSS、tspan、相对长度与其他未列出的绘制特性明确报错，不静默丢弃。SVG 数字实体、中文、CDATA 和文字空白有回归验证。保存拒绝覆盖符号链接。
+
+快照历史以可靠恢复为目标，每次编辑复制文档。实测 10000 图形的 20 次历史约增加 108 MiB 堆内存；不承诺无限历史或任意规模。结果只代表记录的本机环境。
+
+## 文档与示例
+
+- **[课程提交文件：doc/README.md](doc/README.md)**：包含仓库地址、完整架构方案、过程记录、自查和质量证据。
+- [需求矩阵](doc/engineering/requirements.md)、[架构与图](doc/engineering/architecture.md)、[ADR](doc/engineering/adr.md)、[缺陷](doc/engineering/defects.md)、[工程日志](doc/engineering/log.md)、[验证报告](doc/engineering/verification.md)、[发布与复盘](doc/engineering/release.md)。
+- [开发流程](CONTRIBUTING.md)；[流程图 SVG](examples/flowchart.svg)、[带变换的原图](examples/transforms.svg)、[规范化结果](examples/transforms-normalized.svg)。
+
+私有仓库的所有者需为老师/助教授予访问权限，评分人员才能查看代码和历史。

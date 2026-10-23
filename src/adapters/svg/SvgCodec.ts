@@ -1,4 +1,4 @@
-import { XMLBuilder, XMLParser, XMLValidator } from 'fast-xml-parser';
+import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 import type { LoadedDocument } from '../../application/DocumentRepository.js';
 import { Group } from '../../domain/Group.js';
 import { Numbers } from '../../domain/Numbers.js';
@@ -8,6 +8,7 @@ import { SvgDocument } from '../../domain/SvgDocument.js';
 import { SvgStyles } from './SvgStyles.js';
 import { UniformTransform } from './UniformTransform.js';
 import { XmlElement } from './XmlElement.js';
+import { XmlInputValidator } from './XmlInputValidator.js';
 
 type OrderedNode = { [key: string]: string | Record<string, string> | OrderedNode[] };
 
@@ -19,6 +20,9 @@ export class SvgCodec {
     parseAttributeValue: false,
     trimValues: false,
     processEntities: true,
+    // This library gates XML numeric references behind htmlEntities; our validator
+    // still permits only the five XML names and valid numeric references.
+    htmlEntities: true,
   });
   readonly #builder = new XMLBuilder({
     preserveOrder: true,
@@ -29,10 +33,7 @@ export class SvgCodec {
   constructor(private readonly factory = new ShapeFactory()) {}
 
   decode(source: string): LoadedDocument {
-    if (/<!DOCTYPE|<!ENTITY|<\?xml-stylesheet/i.test(source))
-      throw new Error('unsupported SVG document declaration or stylesheet');
-    const validated = XMLValidator.validate(source);
-    if (validated !== true) throw new Error(`invalid SVG XML: ${validated.err.msg}`);
+    XmlInputValidator.validate(source);
     const roots = XmlElement.list(this.#parser.parse(source) as unknown);
     if (roots.length !== 1 || roots[0]!.name !== 'svg')
       throw new Error('SVG requires one <svg> root');
@@ -162,6 +163,8 @@ export class SvgCodec {
         '@_viewBox': `0 0 ${document.width} ${document.height}`,
       },
     };
-    return `<?xml version="1.0" encoding="UTF-8"?>\n${this.#builder.build([root]) as string}\n`;
+    const output = `<?xml version="1.0" encoding="UTF-8"?>\n${this.#builder.build([root]) as string}\n`;
+    XmlInputValidator.validate(output);
+    return output;
   }
 }

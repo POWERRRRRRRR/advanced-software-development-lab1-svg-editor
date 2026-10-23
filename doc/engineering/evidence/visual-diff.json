@@ -1,0 +1,6 @@
+{
+  "method": "Compare complete PNG bytes from the same browser and viewport; identical PNG bytes imply identical pixels.",
+  "exactPngByteMatch": true,
+  "originalBytes": 3814,
+  "normalizedBytes": 3814
+}

@@ -1,0 +1,11 @@
+sourceCommit: 1941abbbafe55964d2a9568bec9f6876fedf849a
+node: v24.22.1
+svg-editor 0.1.0 — type 'help' for commands
+canvas 200x100 created
+rect#r created
+rect#r moved by (10,20)
+undo: rect#r moved by (10,20)
+redo: rect#r moved by (10,20)
+saved to release-smoke.svg (1 elements)
+svg (200x100)
+└── rect#r x=11 y=22 w=3 h=4 fill=red
