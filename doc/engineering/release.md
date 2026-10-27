@@ -57,4 +57,6 @@
 
 当前托管限制经再次核实：Actions 运行 40533683607 的 Node 22/24 jobs 无执行步骤，check annotations 仍提示付款失败/消费额度限制。RISK-001 未解决，使用 ADR-005 本地交叉版本门槛，不声明 CI 成功。用户 preview-test.svg 不纳入版本。
 
-本次版本候选的干净检出验证结果在实际运行后归档至 evidence/v0.2.0；之前的课程、预览和 clear 证据保留。
+本次版本候选：`d6209fa14d3825a4090edc12c0e5ef6a1b2df70e`。全新本地 clone，npm ci 后 Node 22.23.4/24.22.1 均通过 check（71/71）、普通/预览编译入口冒烟；四份编译入口日志的启动版本均为 0.2.0。证据在 [evidence/v0.2.0/clean-checkout.json](evidence/v0.2.0/clean-checkout.json) 与同目录完整日志；托管任务无 steps 和账户拒绝的原始响应也归档。之前的课程、预览和 clear 证据保留。
+
+合并与标签前核对最终源码、测试、脚本、配置/锁文件与候选完全相同，仅新增验收文档/证据；不重复声称未实际运行的测试。冻结版本查看 [v0.2.0](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/tree/v0.2.0)，合并记录查看 [PR #14](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/pull/14)。注解标签记载实际 main 提交，不在本文件中嵌入自身哈希。

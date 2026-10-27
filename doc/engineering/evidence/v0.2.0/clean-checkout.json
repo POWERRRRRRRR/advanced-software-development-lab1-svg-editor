@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-10-27T15:49:38.611Z",
+  "sourceCommit": "d6209fa14d3825a4090edc12c0e5ef6a1b2df70e",
+  "cleanLocalClone": true,
+  "install": "npm ci",
+  "platform": "darwin",
+  "arch": "arm64",
+  "results": [
+    {
+      "node": "v22.23.4",
+      "check": "passed",
+      "tests": 71,
+      "compiledCli": "passed",
+      "compiledPreview": "passed",
+      "log": "node-22.log"
+    },
+    {
+      "node": "v24.22.1",
+      "check": "passed",
+      "tests": 71,
+      "compiledCli": "passed",
+      "compiledPreview": "passed",
+      "log": "node-24.log"
+    }
+  ]
+}

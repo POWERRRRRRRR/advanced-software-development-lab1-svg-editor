@@ -1,0 +1,464 @@
+sourceCommit: d6209fa14d3825a4090edc12c0e5ef6a1b2df70e
+node: v22.23.4
+
+> advanced-software-development-lab1-svg-editor@0.2.0 check
+> npm run typecheck && npm run lint && npm run format:check && npm test && npm run build
+
+
+> advanced-software-development-lab1-svg-editor@0.2.0 typecheck
+> tsc --noEmit
+
+
+> advanced-software-development-lab1-svg-editor@0.2.0 lint
+> eslint src tests scripts --no-error-on-unmatched-pattern
+
+
+> advanced-software-development-lab1-svg-editor@0.2.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> advanced-software-development-lab1-svg-editor@0.2.0 test
+> tsx --test tests/*.test.ts
+
+TAP version 13
+# Subtest: architecture: dependency directions, one class per file, no switch/free functions
+ok 1 - architecture: dependency directions, one class per file, no switch/free functions
+  ---
+  duration_ms: 98.638834
+  type: 'test'
+  ...
+# Subtest: clear: no document required; preview, saved file, binding, revision and histories stay intact
+ok 2 - clear: no document required; preview, saved file, binding, revision and histories stay intact
+  ---
+  duration_ms: 69.728459
+  type: 'test'
+  ...
+# Subtest: clear: interactive REPL clears only on success, restores prompt and keeps processing
+ok 3 - clear: interactive REPL clears only on success, restores prompt and keeps processing
+  ---
+  duration_ms: 3.468
+  type: 'test'
+  ...
+# Subtest: clear: real script replay emits no terminal controls and preserves redo across clear/error
+ok 4 - clear: real script replay emits no terminal controls and preserves redo across clear/error
+  ---
+  duration_ms: 211.76325
+  type: 'test'
+  ...
+# Subtest: CLI: tokenizer preserves quoted spaces, empty content, escapes, colors and literal in
+ok 5 - CLI: tokenizer preserves quoted spaces, empty content, escapes, colors and literal in
+  ---
+  duration_ms: 0.98925
+  type: 'test'
+  ...
+# Subtest: CLI: exact tree branches, inline properties, subtree and show parent
+ok 6 - CLI: exact tree branches, inline properties, subtree and show parent
+  ---
+  duration_ms: 3.062959
+  type: 'test'
+  ...
+# Subtest: CLI: errors are single-line, comments/help need no document, failures preserve redo
+ok 7 - CLI: errors are single-line, comments/help need no document, failures preserve redo
+  ---
+  duration_ms: 0.68675
+  type: 'test'
+  ...
+# Subtest: CLI: replay assignment section 6 verbatim through a real process
+ok 8 - CLI: replay assignment section 6 verbatim through a real process
+  ---
+  duration_ms: 359.449083
+  type: 'test'
+  ...
+# Subtest: CLI: replay assignment flowchart A and verify generated geometry and labels
+ok 9 - CLI: replay assignment flowchart A and verify generated geometry and labels
+  ---
+  duration_ms: 134.580833
+  type: 'test'
+  ...
+# Subtest: CLI: script continues after errors, handles quoted paths and EOF
+ok 10 - CLI: script continues after errors, handles quoted paths and EOF
+  ---
+  duration_ms: 203.152542
+  type: 'test'
+  ...
+# Subtest: commands: create ellipse e 1 2 3 4 in nested undo and redo restore exact tree
+ok 11 - commands: create ellipse e 1 2 3 4 in nested undo and redo restore exact tree
+  ---
+  duration_ms: 3.453292
+  type: 'test'
+  ...
+# Subtest: commands: delete nested undo and redo restore exact tree
+ok 12 - commands: delete nested undo and redo restore exact tree
+  ---
+  duration_ms: 0.635
+  type: 'test'
+  ...
+# Subtest: commands: move scene 10 20 undo and redo restore exact tree
+ok 13 - commands: move scene 10 20 undo and redo restore exact tree
+  ---
+  duration_ms: 0.426792
+  type: 'test'
+  ...
+# Subtest: commands: scale scene 2 undo and redo restore exact tree
+ok 14 - commands: scale scene 2 undo and redo restore exact tree
+  ---
+  duration_ms: 0.336
+  type: 'test'
+  ...
+# Subtest: commands: set r width 12 undo and redo restore exact tree
+ok 15 - commands: set r width 12 undo and redo restore exact tree
+  ---
+  duration_ms: 0.30775
+  type: 'test'
+  ...
+# Subtest: commands: set t text 处理数据 v2 undo and redo restore exact tree
+ok 16 - commands: set t text 处理数据 v2 undo and redo restore exact tree
+  ---
+  duration_ms: 0.26975
+  type: 'test'
+  ...
+# Subtest: commands: group bundle t r undo and redo restore exact tree
+ok 17 - commands: group bundle t r undo and redo restore exact tree
+  ---
+  duration_ms: 0.481375
+  type: 'test'
+  ...
+# Subtest: commands: ungroup nested undo and redo restore exact tree
+ok 18 - commands: ungroup nested undo and redo restore exact tree
+  ---
+  duration_ms: 0.320458
+  type: 'test'
+  ...
+# Subtest: commands: addto nested c undo and redo restore exact tree
+ok 19 - commands: addto nested c undo and redo restore exact tree
+  ---
+  duration_ms: 0.7445
+  type: 'test'
+  ...
+# Subtest: commands: front nested undo and redo restore exact tree
+ok 20 - commands: front nested undo and redo restore exact tree
+  ---
+  duration_ms: 0.730042
+  type: 'test'
+  ...
+# Subtest: commands: back t undo and redo restore exact tree
+ok 21 - commands: back t undo and redo restore exact tree
+  ---
+  duration_ms: 1.014
+  type: 'test'
+  ...
+# Subtest: commands: IO barriers, failed IO, queries and new edits preserve correct history
+ok 22 - commands: IO barriers, failed IO, queries and new edits preserve correct history
+  ---
+  duration_ms: 1.55725
+  type: 'test'
+  ...
+# Subtest: commands: all specified failures leave document/path/history unchanged
+ok 23 - commands: all specified failures leave document/path/history unchanged
+  ---
+  duration_ms: 2.487042
+  type: 'test'
+  ...
+# Subtest: commands: partially executed recursive overflow is rolled back with history intact
+ok 24 - commands: partially executed recursive overflow is rolled back with history intact
+  ---
+  duration_ms: 0.279291
+  type: 'test'
+  ...
+# Subtest: commands: snapshots exposed for inspection cannot mutate current or redo document
+ok 25 - commands: snapshots exposed for inspection cannot mutate current or redo document
+  ---
+  duration_ms: 0.250084
+  type: 'test'
+  ...
+# Subtest: commands: a quoted in remains text, factory rejects unknown commands and extra arguments
+ok 26 - commands: a quoted in remains text, factory rejects unknown commands and extra arguments
+  ---
+  duration_ms: 0.32625
+  type: 'test'
+  ...
+# Subtest: domain: rect geometry, clone isolation and set whitelist
+ok 27 - domain: rect geometry, clone isolation and set whitelist
+  ---
+  duration_ms: 2.153875
+  type: 'test'
+  ...
+# Subtest: domain: circle geometry, clone isolation and set whitelist
+ok 28 - domain: circle geometry, clone isolation and set whitelist
+  ---
+  duration_ms: 0.168333
+  type: 'test'
+  ...
+# Subtest: domain: ellipse geometry, clone isolation and set whitelist
+ok 29 - domain: ellipse geometry, clone isolation and set whitelist
+  ---
+  duration_ms: 0.201375
+  type: 'test'
+  ...
+# Subtest: domain: line geometry, clone isolation and set whitelist
+ok 30 - domain: line geometry, clone isolation and set whitelist
+  ---
+  duration_ms: 0.226667
+  type: 'test'
+  ...
+# Subtest: domain: text geometry, clone isolation and set whitelist
+ok 31 - domain: text geometry, clone isolation and set whitelist
+  ---
+  duration_ms: 0.1995
+  type: 'test'
+  ...
+# Subtest: domain: recursive composite behavior and text content
+ok 32 - domain: recursive composite behavior and text content
+  ---
+  duration_ms: 0.508834
+  type: 'test'
+  ...
+# Subtest: domain: uniqueness, case sensitivity, containers and cycle checks
+ok 33 - domain: uniqueness, case sensitivity, containers and cycle checks
+  ---
+  duration_ms: 1.588875
+  type: 'test'
+  ...
+# Subtest: domain: LCA grouping retains original order; nested ungroup expands in place
+ok 34 - domain: LCA grouping retains original order; nested ungroup expands in place
+  ---
+  duration_ms: 1.799833
+  type: 'test'
+  ...
+# Subtest: domain: finite numbers, dimensions, factory arity and optional styles
+ok 35 - domain: finite numbers, dimensions, factory arity and optional styles
+  ---
+  duration_ms: 0.503291
+  type: 'test'
+  ...
+# Subtest: preview: unsaved edits, undo/redo, resize, read and init follow memory without writing
+ok 36 - preview: unsaved edits, undo/redo, resize, read and init follow memory without writing
+  ---
+  duration_ms: 111.729958
+  type: 'test'
+  ...
+# Subtest: preview: polling, failed commands and queries preserve path, revision and redo; save keeps barrier
+ok 37 - preview: polling, failed commands and queries preserve path, revision and redo; save keeps barrier
+  ---
+  duration_ms: 44.834125
+  type: 'test'
+  ...
+# Subtest: preview: local read-only HTTP boundary, escaped text and no arbitrary file routes
+ok 38 - preview: local read-only HTTP boundary, escaped text and no arbitrary file routes
+  ---
+  duration_ms: 11.091917
+  type: 'test'
+  ...
+# Subtest: preview: unchanged requests reuse encoding; render failure is isolated and retryable
+ok 39 - preview: unchanged requests reuse encoding; render failure is isolated and retryable
+  ---
+  duration_ms: 7.156459
+  type: 'test'
+  ...
+# Subtest: preview: real CLI publishes unsaved state and closes HTTP service on EOF
+ok 40 - preview: real CLI publishes unsaved state and closes HTTP service on EOF
+  ---
+  duration_ms: 308.979708
+  type: 'test'
+  ...
+# Subtest: SVG: all six types, order, whitespace, Chinese and entities survive round trip
+ok 41 - SVG: all six types, order, whitespace, Chinese and entities survive round trip
+  ---
+  duration_ms: 16.198166
+  type: 'test'
+  ...
+# Subtest: SVG: missing IDs reserve later explicit IDs and print exact warnings
+ok 42 - SVG: missing IDs reserve later explicit IDs and print exact warnings
+  ---
+  duration_ms: 1.288791
+  type: 'test'
+  ...
+# Subtest: SVG: nested transforms normalize geometry, stroke width and text size
+ok 43 - SVG: nested transforms normalize geometry, stroke width and text size
+  ---
+  duration_ms: 1.733583
+  type: 'test'
+  ...
+# Subtest: SVG: styles inherit, inline overrides attributes, root styles materialize
+ok 44 - SVG: styles inherit, inline overrides attributes, root styles materialize
+  ---
+  duration_ms: 2.654209
+  type: 'test'
+  ...
+# Subtest: SVG: uniform transform order and default viewBox letterboxing
+ok 45 - SVG: uniform transform order and default viewBox letterboxing
+  ---
+  duration_ms: 0.417542
+  type: 'test'
+  ...
+# Subtest: SVG: box marker gracefully downgrades to ordinary g
+ok 46 - SVG: box marker gracefully downgrades to ordinary g
+  ---
+  duration_ms: 0.2015
+  type: 'test'
+  ...
+# Subtest: SVG: rejects malformed XML instead of dropping rendering semantics
+ok 47 - SVG: rejects malformed XML instead of dropping rendering semantics
+  ---
+  duration_ms: 0.205708
+  type: 'test'
+  ...
+# Subtest: SVG: rejects wrong root instead of dropping rendering semantics
+ok 48 - SVG: rejects wrong root instead of dropping rendering semantics
+  ---
+  duration_ms: 0.075833
+  type: 'test'
+  ...
+# Subtest: SVG: rejects duplicate roots instead of dropping rendering semantics
+ok 49 - SVG: rejects duplicate roots instead of dropping rendering semantics
+  ---
+  duration_ms: 0.263459
+  type: 'test'
+  ...
+# Subtest: SVG: rejects unknown shape instead of dropping rendering semantics
+ok 50 - SVG: rejects unknown shape instead of dropping rendering semantics
+  ---
+  duration_ms: 0.377125
+  type: 'test'
+  ...
+# Subtest: SVG: rejects unsupported geometry attribute instead of dropping rendering semantics
+ok 51 - SVG: rejects unsupported geometry attribute instead of dropping rendering semantics
+  ---
+  duration_ms: 0.4395
+  type: 'test'
+  ...
+# Subtest: SVG: rejects rotate instead of dropping rendering semantics
+ok 52 - SVG: rejects rotate instead of dropping rendering semantics
+  ---
+  duration_ms: 0.714875
+  type: 'test'
+  ...
+# Subtest: SVG: rejects non-uniform scale instead of dropping rendering semantics
+ok 53 - SVG: rejects non-uniform scale instead of dropping rendering semantics
+  ---
+  duration_ms: 0.337291
+  type: 'test'
+  ...
+# Subtest: SVG: rejects negative scale instead of dropping rendering semantics
+ok 54 - SVG: rejects negative scale instead of dropping rendering semantics
+  ---
+  duration_ms: 0.143209
+  type: 'test'
+  ...
+# Subtest: SVG: rejects unknown CSS instead of dropping rendering semantics
+ok 55 - SVG: rejects unknown CSS instead of dropping rendering semantics
+  ---
+  duration_ms: 0.12375
+  type: 'test'
+  ...
+# Subtest: SVG: rejects class stylesheet instead of dropping rendering semantics
+ok 56 - SVG: rejects class stylesheet instead of dropping rendering semantics
+  ---
+  duration_ms: 0.114584
+  type: 'test'
+  ...
+# Subtest: SVG: rejects text children instead of dropping rendering semantics
+ok 57 - SVG: rejects text children instead of dropping rendering semantics
+  ---
+  duration_ms: 0.161042
+  type: 'test'
+  ...
+# Subtest: SVG: rejects negative dimensions instead of dropping rendering semantics
+ok 58 - SVG: rejects negative dimensions instead of dropping rendering semantics
+  ---
+  duration_ms: 0.119042
+  type: 'test'
+  ...
+# Subtest: SVG: rejects infinite coordinates instead of dropping rendering semantics
+ok 59 - SVG: rejects infinite coordinates instead of dropping rendering semantics
+  ---
+  duration_ms: 0.0995
+  type: 'test'
+  ...
+# Subtest: SVG: rejects relative units instead of dropping rendering semantics
+ok 60 - SVG: rejects relative units instead of dropping rendering semantics
+  ---
+  duration_ms: 0.09775
+  type: 'test'
+  ...
+# Subtest: SVG: rejects viewBox arity instead of dropping rendering semantics
+ok 61 - SVG: rejects viewBox arity instead of dropping rendering semantics
+  ---
+  duration_ms: 0.090792
+  type: 'test'
+  ...
+# Subtest: SVG: rejects viewBox dimensions instead of dropping rendering semantics
+ok 62 - SVG: rejects viewBox dimensions instead of dropping rendering semantics
+  ---
+  duration_ms: 0.07975
+  type: 'test'
+  ...
+# Subtest: SVG: rejects nondefault aspect ratio instead of dropping rendering semantics
+ok 63 - SVG: rejects nondefault aspect ratio instead of dropping rendering semantics
+  ---
+  duration_ms: 0.084125
+  type: 'test'
+  ...
+# Subtest: SVG: rejects external declaration instead of dropping rendering semantics
+ok 64 - SVG: rejects external declaration instead of dropping rendering semantics
+  ---
+  duration_ms: 0.043208
+  type: 'test'
+  ...
+# Subtest: SVG: rejects currentColor instead of dropping rendering semantics
+ok 65 - SVG: rejects currentColor instead of dropping rendering semantics
+  ---
+  duration_ms: 0.09725
+  type: 'test'
+  ...
+# Subtest: files: atomic replacement, mode preservation, failed rename/write and cleanup
+ok 66 - files: atomic replacement, mode preservation, failed rename/write and cleanup
+  ---
+  duration_ms: 96.178416
+  type: 'test'
+  ...
+# Subtest: files: malformed read and failed save preserve live document, path and redo
+ok 67 - files: malformed read and failed save preserve live document, path and redo
+  ---
+  duration_ms: 20.371875
+  type: 'test'
+  ...
+# Subtest: SVG: explicit numeric inherit resolves without parsing inherit as a length
+ok 68 - SVG: explicit numeric inherit resolves without parsing inherit as a length
+  ---
+  duration_ms: 1.0895
+  type: 'test'
+  ...
+# Subtest: SVG: undeclared entities and invalid XML references are rejected, CDATA is literal
+ok 69 - SVG: undeclared entities and invalid XML references are rejected, CDATA is literal
+  ---
+  duration_ms: 4.669041
+  type: 'test'
+  ...
+# Subtest: SVG: ellipse auto radius and comma-separated transform lists preserve SVG defaults
+ok 70 - SVG: ellipse auto radius and comma-separated transform lists preserve SVG defaults
+  ---
+  duration_ms: 0.48925
+  type: 'test'
+  ...
+# Subtest: files: saving over a symlink is rejected without replacing the link or target
+ok 71 - files: saving over a symlink is rejected without replacing the link or target
+  ---
+  duration_ms: 7.714917
+  type: 'test'
+  ...
+1..71
+# tests 71
+# suites 0
+# pass 71
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1148.039458
+
+> advanced-software-development-lab1-svg-editor@0.2.0 build
+> tsc -p tsconfig.build.json
+
