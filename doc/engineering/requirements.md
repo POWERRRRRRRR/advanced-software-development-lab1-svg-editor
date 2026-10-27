@@ -49,4 +49,4 @@
 
 ### REQ-16：终端 clear（用户新增）
 
-`clear` 无参数，仅清理交互终端显示并重新显示 svg>；无需文档。不改图形、路径、revision、undo/redo 或 IO 屏障，不停止预览。额外参数失败且不清屏；脚本/重定向模式不输出 ANSI 清屏码。保留命令名称在 CommandFactory 唯一分派，具体清屏 IO 在 Repl。实现与验收结果见 [clear 扩展报告](extensions/cli-clear.md)；当前开发中。
+`clear` 无参数，仅清理交互终端显示并重新显示 svg>；无需文档。不改图形、路径、revision、undo/redo 或 IO 屏障，不停止预览。额外参数失败且不清屏；脚本/重定向模式不输出 ANSI 清屏码。保留命令名称在 CommandFactory 唯一分派，具体清屏 IO 在 Repl。实现与验收结果见 [clear 扩展报告](extensions/cli-clear.md)；完成：71 项测试、Node 22/24 干净检出与实际 PTY/HTTP 检查通过。

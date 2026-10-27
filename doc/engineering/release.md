@@ -46,3 +46,5 @@
 ## 发布后扩展：feat/live-preview
 
 2026-10-27 新增本机浏览器实时预览；课程 final/main 基线不移动。按本地计划、实现、验收归档分步提交，完成后集中推送功能分支。该扩展尚未合并 main，也没有替换或新建课程交付标签。具体候选代码、68 项回归、Node 22/24 干净检出和真实 Chrome 结果见 [扩展报告](extensions/live-preview.md)。
+
+同一功能分支的后续 clear 提交：824b04a。增加仅清理终端显示的 clear，71 项测试和 Node 22/24 干净检出通过，另存 evidence/cli-clear；详情见 [clear 报告](extensions/cli-clear.md)。课程 final 不变，功能分支尚未合并 main。

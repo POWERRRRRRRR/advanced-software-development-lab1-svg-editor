@@ -67,3 +67,7 @@ RISK-001：[托管运行 39943255667](https://github.com/POWERRRRRRRR/advanced-s
 ## 发布后实时预览扩展验证（2026-10-27）
 
 以上 63 项与既有 evidence 文件保留为 final 基线证据。feat/live-preview 候选提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 新增 5 项集成测试，Node 22.23.4 / 24.22.1 干净检出均通过全部 68 项及编译预览入口冒烟；真实 Chrome 检查无需 save 的显示、移动、undo/redo、尺寸切换、退出断线。独立证据目录 [evidence/live-preview](evidence/live-preview/clean-checkout.json)，完整 [扩展验收报告](extensions/live-preview.md)。不替换课程 final，不声称托管 CI 或未验证浏览器通过。
+
+## clear 扩展验证（2026-10-27）
+
+候选 824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b 新增 3 项 clear 行为测试，总计 71 项。Node 22.23.4/24.22.1 在独立干净 clone 中全部通过 check 与编译入口冒烟；实际 PTY 清屏后 HTTP 预览响应字节相同，redo 正常、额外参数失败不清屏。详见 [clear 报告](extensions/cli-clear.md) 和 [原始运行汇总](evidence/cli-clear/clean-checkout.json)。本次无新增独立人工评审或托管 CI 成功结论。

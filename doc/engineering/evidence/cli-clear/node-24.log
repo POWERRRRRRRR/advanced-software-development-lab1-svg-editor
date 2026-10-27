@@ -1,0 +1,107 @@
+sourceCommit: 824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b
+node: v24.22.1
+
+> advanced-software-development-lab1-svg-editor@0.1.0 check
+> npm run typecheck && npm run lint && npm run format:check && npm test && npm run build
+
+
+> advanced-software-development-lab1-svg-editor@0.1.0 typecheck
+> tsc --noEmit
+
+
+> advanced-software-development-lab1-svg-editor@0.1.0 lint
+> eslint src tests scripts --no-error-on-unmatched-pattern
+
+
+> advanced-software-development-lab1-svg-editor@0.1.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> advanced-software-development-lab1-svg-editor@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ architecture: dependency directions, one class per file, no switch/free functions (67.62125ms)
+✔ clear: no document required; preview, saved file, binding, revision and histories stay intact (61.918584ms)
+✔ clear: interactive REPL clears only on success, restores prompt and keeps processing (3.158916ms)
+✔ clear: real script replay emits no terminal controls and preserves redo across clear/error (188.437292ms)
+✔ CLI: tokenizer preserves quoted spaces, empty content, escapes, colors and literal in (1.026708ms)
+✔ CLI: exact tree branches, inline properties, subtree and show parent (2.536208ms)
+✔ CLI: errors are single-line, comments/help need no document, failures preserve redo (0.765542ms)
+✔ CLI: replay assignment section 6 verbatim through a real process (319.4495ms)
+✔ CLI: replay assignment flowchart A and verify generated geometry and labels (123.130417ms)
+✔ CLI: script continues after errors, handles quoted paths and EOF (191.565209ms)
+✔ commands: create ellipse e 1 2 3 4 in nested undo and redo restore exact tree (7.348459ms)
+✔ commands: delete nested undo and redo restore exact tree (1.428417ms)
+✔ commands: move scene 10 20 undo and redo restore exact tree (0.512583ms)
+✔ commands: scale scene 2 undo and redo restore exact tree (1.105042ms)
+✔ commands: set r width 12 undo and redo restore exact tree (0.360458ms)
+✔ commands: set t text 处理数据 v2 undo and redo restore exact tree (0.291292ms)
+✔ commands: group bundle t r undo and redo restore exact tree (0.455791ms)
+✔ commands: ungroup nested undo and redo restore exact tree (0.368958ms)
+✔ commands: addto nested c undo and redo restore exact tree (0.337333ms)
+✔ commands: front nested undo and redo restore exact tree (0.425584ms)
+✔ commands: back t undo and redo restore exact tree (0.348458ms)
+✔ commands: IO barriers, failed IO, queries and new edits preserve correct history (1.380042ms)
+✔ commands: all specified failures leave document/path/history unchanged (0.824125ms)
+✔ commands: partially executed recursive overflow is rolled back with history intact (0.430958ms)
+✔ commands: snapshots exposed for inspection cannot mutate current or redo document (1.48525ms)
+✔ commands: a quoted in remains text, factory rejects unknown commands and extra arguments (0.553792ms)
+✔ domain: rect geometry, clone isolation and set whitelist (1.371792ms)
+✔ domain: circle geometry, clone isolation and set whitelist (0.166792ms)
+✔ domain: ellipse geometry, clone isolation and set whitelist (0.143541ms)
+✔ domain: line geometry, clone isolation and set whitelist (0.134416ms)
+✔ domain: text geometry, clone isolation and set whitelist (0.145584ms)
+✔ domain: recursive composite behavior and text content (0.440417ms)
+✔ domain: uniqueness, case sensitivity, containers and cycle checks (0.302ms)
+✔ domain: LCA grouping retains original order; nested ungroup expands in place (0.63025ms)
+✔ domain: finite numbers, dimensions, factory arity and optional styles (0.261875ms)
+✔ preview: unsaved edits, undo/redo, resize, read and init follow memory without writing (78.364292ms)
+✔ preview: polling, failed commands and queries preserve path, revision and redo; save keeps barrier (27.648958ms)
+✔ preview: local read-only HTTP boundary, escaped text and no arbitrary file routes (9.239292ms)
+✔ preview: unchanged requests reuse encoding; render failure is isolated and retryable (6.53825ms)
+✔ preview: real CLI publishes unsaved state and closes HTTP service on EOF (307.967458ms)
+✔ SVG: all six types, order, whitespace, Chinese and entities survive round trip (8.995708ms)
+✔ SVG: missing IDs reserve later explicit IDs and print exact warnings (0.949166ms)
+✔ SVG: nested transforms normalize geometry, stroke width and text size (1.830709ms)
+✔ SVG: styles inherit, inline overrides attributes, root styles materialize (0.871917ms)
+✔ SVG: uniform transform order and default viewBox letterboxing (0.33925ms)
+✔ SVG: box marker gracefully downgrades to ordinary g (0.163458ms)
+✔ SVG: rejects malformed XML instead of dropping rendering semantics (0.149292ms)
+✔ SVG: rejects wrong root instead of dropping rendering semantics (0.075958ms)
+✔ SVG: rejects duplicate roots instead of dropping rendering semantics (0.070416ms)
+✔ SVG: rejects unknown shape instead of dropping rendering semantics (0.158292ms)
+✔ SVG: rejects unsupported geometry attribute instead of dropping rendering semantics (0.122125ms)
+✔ SVG: rejects rotate instead of dropping rendering semantics (0.102333ms)
+✔ SVG: rejects non-uniform scale instead of dropping rendering semantics (1.492667ms)
+✔ SVG: rejects negative scale instead of dropping rendering semantics (0.122042ms)
+✔ SVG: rejects unknown CSS instead of dropping rendering semantics (0.097625ms)
+✔ SVG: rejects class stylesheet instead of dropping rendering semantics (0.125875ms)
+✔ SVG: rejects text children instead of dropping rendering semantics (0.160958ms)
+✔ SVG: rejects negative dimensions instead of dropping rendering semantics (0.130291ms)
+✔ SVG: rejects infinite coordinates instead of dropping rendering semantics (0.109ms)
+✔ SVG: rejects relative units instead of dropping rendering semantics (0.089583ms)
+✔ SVG: rejects viewBox arity instead of dropping rendering semantics (0.07725ms)
+✔ SVG: rejects viewBox dimensions instead of dropping rendering semantics (0.168041ms)
+✔ SVG: rejects nondefault aspect ratio instead of dropping rendering semantics (0.078458ms)
+✔ SVG: rejects external declaration instead of dropping rendering semantics (0.03675ms)
+✔ SVG: rejects currentColor instead of dropping rendering semantics (0.105958ms)
+✔ files: atomic replacement, mode preservation, failed rename/write and cleanup (60.916584ms)
+✔ files: malformed read and failed save preserve live document, path and redo (16.992125ms)
+✔ SVG: explicit numeric inherit resolves without parsing inherit as a length (1.56525ms)
+✔ SVG: undeclared entities and invalid XML references are rejected, CDATA is literal (2.340917ms)
+✔ SVG: ellipse auto radius and comma-separated transform lists preserve SVG defaults (1.151667ms)
+✔ files: saving over a symlink is rejected without replacing the link or target (7.000208ms)
+ℹ tests 71
+ℹ suites 0
+ℹ pass 71
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 994.189625
+
+> advanced-software-development-lab1-svg-editor@0.1.0 build
+> tsc -p tsconfig.build.json
+
