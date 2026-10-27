@@ -34,6 +34,34 @@ npm run build
 npm start
 ```
 
+## 浏览器实时预览（发布后扩展）
+
+在 `feat/live-preview` 分支运行：
+
+```sh
+npm run preview
+# 等价：npm run cli -- --preview
+# 编译后：npm run build && npm start -- --preview
+```
+
+打开终端输出的 `http://127.0.0.1:端口/会话地址/`，保持 CLI 运行，再在终端输入：
+
+```text
+init 800 480
+create rect r 80 90 240 100 #3974ce
+create text title 100 140 "实时预览，无需先保存"
+set title fill white
+move r 60 0
+undo
+redo
+```
+
+浏览器约每 300ms 检查变化，直接显示内存画布，无需 save 或手动刷新。init/read、所有成功编辑、undo/redo 和画布尺寸变更都会同步。失败命令保留原画面；查询与查看页面不改变撤销历史。页面支持适应窗口/原尺寸和多个页面同时查看。
+
+**预览不等于保存。** 需要文件时仍执行 `save demo.svg`，save 仍按课程规则清空历史。Ctrl-C/Ctrl-D 退出后服务关闭，浏览器提示连接中断并保留最后画面；重新启动会生成新地址，请打开新链接。仅本机可访问，不提供浏览器内编辑和外部文件自动监听。输入重定向脚本在 EOF 后退出，因此要持续预览，请使用交互终端。
+
+本扩展不在课程 `final` 标签中；实现和验证见[扩展报告](doc/engineering/extensions/live-preview.md)。
+
 ## 命令与约定
 
 | 类别 | 命令                                   |
@@ -58,7 +86,7 @@ npm run benchmark       # 100/1000/10000 图形的快照/历史实验
 npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 ```
 
-63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
+课程 `final` 基线：63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
 
 **GitHub Actions 状态：账户账单/消费额度阻止任务启动。** CI 配置已提交，不能声称托管 CI 已通过。环境限制与替代验证记录见 ADR-005。
 

@@ -39,3 +39,5 @@ ReleaseCheck 从当前 HEAD 创建干净本地克隆，npm ci 后执行两版本
 - [Node.js 测试框架](https://nodejs.org/docs/latest-v22.x/api/test.html)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)：节点顺序、实体与 CDATA 的行为必须通过本项目回归验证。
 - [PlantUML 编码](https://plantuml.com/text-encoding)：architecture.puml 是图源；可用 PlantUML 本地重新生成 SVG。本次本机无 Java，图源经在线渲染验证。
+
+发布后扩展使用 `RELEASE_EVIDENCE_DIR=doc/engineering/evidence/<feature>` 运行 release:check，将新的干净检出日志放入独立目录，避免覆盖 final 的原始验收证据。当前脚本同时检查普通和 --preview 编译入口。

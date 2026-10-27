@@ -77,3 +77,9 @@ ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全�
 ## 阶段 6：发布后实时预览（2026-10-27）
 
 用户要求提交当前版本、打标签后开分支实现实时预览。实际核对：工作区干净，远端 main 与本地同为 1d6b3fd，远端 final 已指向该提交；无需空提交或重打标签。由 final 创建 feat/live-preview，保留课程版本。先记录 REQ-15、ADR-006 和验收计划，选择只读本机浏览器预览，随后分步实现、验证和集中推送。当前无独立评审人员。
+
+### 实现与首轮验收
+
+新增 EditorSession 只读文档版本、PreviewServer/PreviewPage 和 --preview 启动装配；默认 CLI 不启动 HTTP。新增 5 项集成测试（总计 68），覆盖内存变更、读入、失败/查询/预览对路径历史的隔离、并发请求、304 缓存、只读/跨站边界、编码故障隔离、真实进程 EOF 清理。首轮 npm run check 通过。随后真实 Chrome 打开发现 BUG-004，修复并补 HTTP 回归；最终全套检查结果另记。
+
+真实 PTY + Chrome：空画布提示正确；未执行 save，创建中文/矩形/圆，页面自动显示 800×480 / 5 元素 / 版本 8。move 后版本 9、rect x=180；undo 后版本 10、x=80；失败 move missing 后 redo 成功、版本 11、x=180。切换原尺寸按钮状态正确。Ctrl-C 后进程退出，页面显示断线提示。截图 evidence/live-preview.jpg 为实际浏览器截图。未做独立人工评审，不声称 Safari/Firefox 或 Linux 已验证。
