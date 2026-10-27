@@ -19,6 +19,7 @@ import { TreeCommand } from './commands/TreeCommand.js';
 import { ShowCommand } from './commands/ShowCommand.js';
 import { UndoCommand } from './commands/UndoCommand.js';
 import { RedoCommand } from './commands/RedoCommand.js';
+import { ClearCommand } from './commands/ClearCommand.js';
 import { HelpCommand } from './commands/HelpCommand.js';
 
 type Definition = { syntax: string; create: (args: readonly Argument[]) => Command };
@@ -53,6 +54,10 @@ export class CommandFactory {
       ['tree', { syntax: 'tree [id]', create: (args) => new TreeCommand(args) }],
       ['show', { syntax: 'show <id>', create: (args) => new ShowCommand(args) }],
       ['help', { syntax: 'help', create: (args) => new HelpCommand(args, this.syntax()) }],
+      [
+        'clear',
+        { syntax: 'clear (terminal display only)', create: (args) => new ClearCommand(args) },
+      ],
       ['undo', { syntax: 'undo', create: (args) => new UndoCommand(args) }],
       ['redo', { syntax: 'redo', create: (args) => new RedoCommand(args) }],
     ]);

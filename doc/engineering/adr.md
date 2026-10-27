@@ -28,3 +28,9 @@
 2026-10-27，已决定。扩展独立于已发布 final，详见 [实施与验收计划](extensions/live-preview.md)。选择 Node HTTP 本机服务 + 浏览器 300ms 串行轮询，替代桌面 GUI、落盘监听和长连接。EditorSession 只提供单调递增的文档版本（成功替换文档后递增），不依赖 HTTP；适配器缓存版本对应 SVG，bootstrap 管理生命周期。预览不调用 save，不修改历史，不新增编辑命令分派。
 
 服务仅接受本机地址、随机会话路径与同源请求，无文件服务和写接口；页面用 img 加载 SVG，避免将用户内容注入页面 DOM。依据 [MDN SVG 图片上下文](https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/SVG_as_an_image) 的脚本/外部资源限制，另设 CSP、禁止缓存及 iframe 嵌入。代价：约 300ms 轮询间隔、每个新文档版本一次完整序列化；不是协作编辑或远程共享服务。
+
+## ADR-007：clear 是显示意图，不是文档编辑
+
+2026-10-27，已决定。通过唯一 CommandFactory 注册 ClearCommand；命令仅校验零参数，覆写 Command.clearsDisplay 只读属性表达显示意图，不访问 EditorSession。CliController 在 execute 成功后才转交意图；Repl 在交互模式中清理屏幕/支持的终端回滚区并重显提示符。使用现有多态而非在 CLI 额外比较命令名称，不引入核心 IO 或编辑历史项。
+
+交互判断要求 stdin/stdout 均为 TTY；脚本或重定向时 clear 成功但无输出，避免控制字符污染日志。clear 不重建 REPL，因此不刻意清除上下键输入历史；不改变文档版本，浏览器画面保持不变。额外参数失败、显示不清除。终端对回滚区擦除的支持有差异，不保证所有终端的滚动历史都被清空。

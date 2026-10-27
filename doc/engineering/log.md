@@ -89,3 +89,9 @@ ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全�
 从实现提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 建立独立本地 clone；npm ci 后，Node 22.23.4、24.22.1 的 npm run check 各自通过 68/68 测试、类型/规范/格式/构建，普通及 --preview 编译入口均退出 0。新增 RELEASE_EVIDENCE_DIR 参数将完整安装/检查/冒烟日志归档于 evidence/live-preview，保留 final 历史证据。安装产生依赖安装脚本 allowScripts 提示，但安装与实际构建/检查均成功；没有全局修改安装策略。
 
 完成源码自查：核心依赖约束保持、预览只读、失败渲染隔离、条件请求缓存、退出释放端口；phase_cli_1.md 未修改。没有第二人独立评审。课程 main/final 保持 1d6b3fd；扩展按计划/实现/验收文档分步提交后集中推送。
+
+## 阶段 7：终端 clear（2026-10-27）
+
+用户认可实时预览，要求提交功能并增加仅清理 CLI 显示的 clear。核对实时预览 b526bf8 已与远端一致、草稿 PR #14 已存在；不作空提交。用户手工测试产生 preview-test.svg，保留且不纳入开发提交。REQ-16/ADR-007 定义零参数显示意图，通过命令工厂与多态衔接至 Repl，不操作会话文档或历史；在当前功能分支独立实现、检查后集中推送。
+
+新增 ClearCommand、显示意图传递与交互 Repl 清屏，help 自动包含命令。增加 3 项测试，全套 npm run check 通过 71/71。真实编译入口 PTY 测得 clear 输出清屏序列并重显 svg>；HTTP 预览响应字节不变（revision=4），随后 redo 成功恢复 x=150；clear extra 没有清屏序列，EOF 正常退出。相关需求、ADR、缺陷边界说明、架构与 README 同步更新，无独立人工评审。下一步用候选提交复跑 Node 22/24 干净检出并保存独立证据。

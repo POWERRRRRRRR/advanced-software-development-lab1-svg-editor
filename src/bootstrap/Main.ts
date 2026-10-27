@@ -17,7 +17,7 @@ export class Main {
       process.stdin,
       process.stdout,
       process.stderr,
-      Boolean(process.stdin.isTTY),
+      Boolean(process.stdin.isTTY && process.stdout.isTTY),
       Version.value,
     );
     const preview = args.includes('--preview') ? new PreviewServer(session) : undefined;

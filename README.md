@@ -70,7 +70,10 @@ redo
 | 编辑 | create / delete / move / scale / set   |
 | 层级 | group / ungroup / addto / front / back |
 | 查询 | tree / show / help                     |
+| 界面 | clear                                  |
 | 历史 | undo / redo                            |
+
+在 `svg>` 输入 `clear`（无参数）可以清理终端显示，再继续输入命令；浏览器画布、文件绑定和 undo/redo 历史保持不变。未创建画布也可用。它不重置会话或刻意清除上下键输入历史；脚本回放/输出重定向时不输出清屏控制码。旧进程不会自动加载更新，使用新增命令前请保存需要保留的作品，再重启 CLI。详见 [clear 验收报告](doc/engineering/extensions/cli-clear.md)。
 
 输入 `help` 查看全部语法，完整规范见 [课程附件](phase_cli_1.md)。`create box` 属后续插件阶段，首版明确拒绝。
 

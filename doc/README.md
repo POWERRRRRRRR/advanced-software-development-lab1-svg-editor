@@ -150,3 +150,5 @@ SvgDocument --> Shapes
 ## 课程发布后的可选扩展
 
 课程交付仍以 `final`（1d6b3fd）为准。后续 `feat/live-preview` 分支新增只读浏览器实时预览，通过 `npm run preview` 启动，无需先 save；不移动课程标签。设计、测试、实际浏览器验收和版本证据见 [扩展报告](engineering/extensions/live-preview.md)，该扩展不属于上文课程基线的 63 项测试结论。
+
+同一扩展分支随后增加 `clear`，仅清理终端显示，不改变画布、文件路径、预览或撤销重做历史；具体行为与验证见 [clear 扩展报告](engineering/extensions/cli-clear.md)。课程 final 标签仍保持原样。

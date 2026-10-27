@@ -15,3 +15,7 @@ BUG-002/003 在后续先本地提交、最终集中推送的用户工作流下�
 2026-10-27，实际 Chrome 首次打开预览链接返回 Forbidden。原因：Fetch Metadata 检查将跨站的顶层导航与跨站数据请求一起拒绝。修复：仅对准确随机会话路径且 Sec-Fetch-Mode=navigate 的页面导航放行；state 接口仍拒绝跨站来源，Host/Origin/CSP 保护保留。preview.test.ts 通过真实 HTTP 请求覆盖跨站导航可打开、跨站数据请求拒绝；实际 Chrome 再次打开成功并显示未保存画面。
 
 测试编写时另遇 TypeScript 对 node:test 重载参数类型推导错误，改为直接导入 TestContext；属于测试编译问题，未进入发布版本。手工验收中的 text 额外颜色参数和 set font-size 按既有 CLI 语法被拒绝，改用 set fill；没有将未支持语法记录为成功。
+
+### REQ-16 clear 的边界自查
+
+本次 clear 扩展没有新增实际复现的功能缺陷。设计阶段将“输入为 TTY、输出被重定向”列为日志污染风险，Main 改为同时检查 stdin/stdout，清屏控制码仅由交互 Repl 输出。tests/clear.test.ts 验证参数失败不清屏、脚本输出不含 ANSI、预览/路径/历史不变；不把预防性边界处理登记为虚构的线上缺陷。
