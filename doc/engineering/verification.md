@@ -63,3 +63,7 @@ RISK-001：[托管运行 39943255667](https://github.com/POWERRRRRRRR/advanced-s
 ## 已知边界
 
 支持子集和歧义处理以需求矩阵为准。未实现旋转/非等比缩放/path/tspan/外部 CSS/相对长度/非默认 preserveAspectRatio 等；遇到相关输入明确失败。保存目标符号链接拒绝。快照与递归树未承诺任意规模、无限历史或任意深度。未做多人协同、插件加载或 GUI 验收，因为不属于本阶段。
+
+## 发布后实时预览扩展验证（2026-10-27）
+
+以上 63 项与既有 evidence 文件保留为 final 基线证据。feat/live-preview 候选提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 新增 5 项集成测试，Node 22.23.4 / 24.22.1 干净检出均通过全部 68 项及编译预览入口冒烟；真实 Chrome 检查无需 save 的显示、移动、undo/redo、尺寸切换、退出断线。独立证据目录 [evidence/live-preview](evidence/live-preview/clean-checkout.json)，完整 [扩展验收报告](extensions/live-preview.md)。不替换课程 final，不声称托管 CI 或未验证浏览器通过。

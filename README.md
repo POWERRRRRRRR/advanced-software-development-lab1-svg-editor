@@ -60,7 +60,7 @@ redo
 
 **预览不等于保存。** 需要文件时仍执行 `save demo.svg`，save 仍按课程规则清空历史。Ctrl-C/Ctrl-D 退出后服务关闭，浏览器提示连接中断并保留最后画面；重新启动会生成新地址，请打开新链接。仅本机可访问，不提供浏览器内编辑和外部文件自动监听。输入重定向脚本在 EOF 后退出，因此要持续预览，请使用交互终端。
 
-本扩展不在课程 `final` 标签中；实现和验证见[扩展报告](doc/engineering/extensions/live-preview.md)。
+扩展已通过 68 项测试及 Node 22/24 干净检出检查，并经本机 Chrome 实际验收。本扩展不在课程 `final` 标签中；实现和验证见[扩展报告](doc/engineering/extensions/live-preview.md)。
 
 ## 命令与约定
 

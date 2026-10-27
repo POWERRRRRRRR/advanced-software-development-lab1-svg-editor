@@ -83,3 +83,9 @@ ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全�
 新增 EditorSession 只读文档版本、PreviewServer/PreviewPage 和 --preview 启动装配；默认 CLI 不启动 HTTP。新增 5 项集成测试（总计 68），覆盖内存变更、读入、失败/查询/预览对路径历史的隔离、并发请求、304 缓存、只读/跨站边界、编码故障隔离、真实进程 EOF 清理。首轮 npm run check 通过。随后真实 Chrome 打开发现 BUG-004，修复并补 HTTP 回归；最终全套检查结果另记。
 
 真实 PTY + Chrome：空画布提示正确；未执行 save，创建中文/矩形/圆，页面自动显示 800×480 / 5 元素 / 版本 8。move 后版本 9、rect x=180；undo 后版本 10、x=80；失败 move missing 后 redo 成功、版本 11、x=180。切换原尺寸按钮状态正确。Ctrl-C 后进程退出，页面显示断线提示。截图 evidence/live-preview.jpg 为实际浏览器截图。未做独立人工评审，不声称 Safari/Firefox 或 Linux 已验证。
+
+### 最终干净检出验证与自查
+
+从实现提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 建立独立本地 clone；npm ci 后，Node 22.23.4、24.22.1 的 npm run check 各自通过 68/68 测试、类型/规范/格式/构建，普通及 --preview 编译入口均退出 0。新增 RELEASE_EVIDENCE_DIR 参数将完整安装/检查/冒烟日志归档于 evidence/live-preview，保留 final 历史证据。安装产生依赖安装脚本 allowScripts 提示，但安装与实际构建/检查均成功；没有全局修改安装策略。
+
+完成源码自查：核心依赖约束保持、预览只读、失败渲染隔离、条件请求缓存、退出释放端口；phase_cli_1.md 未修改。没有第二人独立评审。课程 main/final 保持 1d6b3fd；扩展按计划/实现/验收文档分步提交后集中推送。
