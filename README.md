@@ -2,7 +2,7 @@
 
 TypeScript 面向对象 SVG 命令行编辑器，提供六种图形、嵌套容器、全部编辑命令、撤销重做、真实 SVG 读写和常见 SVG 导入规范化。
 
-仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。课程交付定位：`final` 标签；版本：`0.1.0`。
+仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。当前发行版本：`v0.2.0`（实时预览与 clear）。课程交付仍定位于 `final` 标签（0.1.0），标签保持不变。
 
 ## 安装运行
 
@@ -34,6 +34,34 @@ npm run build
 npm start
 ```
 
+## 浏览器实时预览（发布后扩展）
+
+在 `main` 或冻结标签 `v0.2.0` 对应版本运行：
+
+```sh
+npm run preview
+# 等价：npm run cli -- --preview
+# 编译后：npm run build && npm start -- --preview
+```
+
+打开终端输出的 `http://127.0.0.1:端口/会话地址/`，保持 CLI 运行，再在终端输入：
+
+```text
+init 800 480
+create rect r 80 90 240 100 #3974ce
+create text title 100 140 "实时预览，无需先保存"
+set title fill white
+move r 60 0
+undo
+redo
+```
+
+浏览器约每 300ms 检查变化，直接显示内存画布，无需 save 或手动刷新。init/read、所有成功编辑、undo/redo 和画布尺寸变更都会同步。失败命令保留原画面；查询与查看页面不改变撤销历史。页面支持适应窗口/原尺寸和多个页面同时查看。
+
+**预览不等于保存。** 需要文件时仍执行 `save demo.svg`，save 仍按课程规则清空历史。Ctrl-C/Ctrl-D 退出后服务关闭，浏览器提示连接中断并保留最后画面；重新启动会生成新地址，请打开新链接。仅本机可访问，不提供浏览器内编辑和外部文件自动监听。输入重定向脚本在 EOF 后退出，因此要持续预览，请使用交互终端。
+
+当前扩展版本（含 clear）已通过 71 项测试及 Node 22/24 干净检出检查，实时预览另经本机 Chrome 实际验收。本扩展不在课程 `final` 标签中；实现和验证见[扩展报告](doc/engineering/extensions/live-preview.md)。
+
 ## 命令与约定
 
 | 类别 | 命令                                   |
@@ -42,7 +70,10 @@ npm start
 | 编辑 | create / delete / move / scale / set   |
 | 层级 | group / ungroup / addto / front / back |
 | 查询 | tree / show / help                     |
+| 界面 | clear                                  |
 | 历史 | undo / redo                            |
+
+在 `svg>` 输入 `clear`（无参数）可以清理终端显示，再继续输入命令；浏览器画布、文件绑定和 undo/redo 历史保持不变。未创建画布也可用。它不重置会话或刻意清除上下键输入历史；脚本回放/输出重定向时不输出清屏控制码。旧进程不会自动加载更新，使用新增命令前请保存需要保留的作品，再重启 CLI。详见 [clear 验收报告](doc/engineering/extensions/cli-clear.md)。
 
 输入 `help` 查看全部语法，完整规范见 [课程附件](phase_cli_1.md)。`create box` 属后续插件阶段，首版明确拒绝。
 
@@ -58,7 +89,7 @@ npm run benchmark       # 100/1000/10000 图形的快照/历史实验
 npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 ```
 
-63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
+课程 `final` 基线：63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
 
 **GitHub Actions 状态：账户账单/消费额度阻止任务启动。** CI 配置已提交，不能声称托管 CI 已通过。环境限制与替代验证记录见 ADR-005。
 
@@ -69,6 +100,8 @@ npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 导入规范化保留当前外观和容器结构。旋转、非等比缩放、path、外部 CSS、tspan、相对长度与其他未列出的绘制特性明确报错，不静默丢弃。SVG 数字实体、中文、CDATA 和文字空白有回归验证。保存拒绝覆盖符号链接。
 
 快照历史以可靠恢复为目标，每次编辑复制文档。实测 10000 图形的 20 次历史约增加 108 MiB 堆内存；不承诺无限历史或任意规模。结果只代表记录的本机环境。
+
+版本变化见 [CHANGELOG.md](CHANGELOG.md)，冻结验证与已知限制见[发布记录](doc/engineering/release.md)。
 
 ## 文档与示例
 

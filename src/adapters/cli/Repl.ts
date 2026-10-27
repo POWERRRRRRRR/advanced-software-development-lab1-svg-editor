@@ -25,6 +25,8 @@ export class Repl {
       if (this.interactive) terminal.prompt();
       for await (const line of terminal) {
         const result = await this.controller.execute(line);
+        if (this.interactive && result.clearDisplay && !result.failed)
+          this.output.write('\u001b[2J\u001b[3J\u001b[H');
         const target = result.failed ? this.errors : this.output;
         if (result.lines.length) target.write(`${result.lines.join('\n')}\n`);
         failed ||= result.failed;

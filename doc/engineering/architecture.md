@@ -48,7 +48,7 @@ SvgDocument --> Shapes
 @enduml
 ```
 
-![已渲染组件图](architecture.svg)
+![课程 final 基线组件图](architecture.svg)
 
 图源 [architecture.puml](architecture.puml)，已实际渲染。
 
@@ -86,3 +86,15 @@ SvgDocument --> Shapes
 ## 最终一致性检查
 
 实际目录与上述四层一致。AST 检查逐文件导入和类名/文件名，核心无 IO/第三方依赖；源码复核没有其他 shape/command 名称分派。应用端口由适配层实现，DTO 只用于边界，不替代领域对象。课程提交文档包含完整汇总。
+
+## 发布后浏览器预览架构（ADR-006）
+
+以上已渲染组件图对应 final 课程基线。扩展仍遵守四层依赖：Main → PreviewServer → EditorSession / SvgCodec / PreviewPage。PreviewServer 和 PreviewPage 位于 adapters/preview；没有领域层修改，没有命令工厂之外的命令分派。
+
+EditorSession 的只读 revision 在成功 init/read/resize/edit/undo/redo 后递增，查询、save、失败命令不递增。HTTP 适配器按版本缓存 SVG，首次请求读取 document 副本并编码；相同版本的条件请求返回 304。浏览器每次请求完成后 300ms 再请求，4 秒超时，不堆叠并发请求。渲染异常只影响 HTTP 请求，不改变命令结果或文档历史。Main 在 REPL 结束的 finally 中关闭服务器和连接。
+
+边界：127.0.0.1 动态端口、随机会话路径、Host/Origin/Fetch Metadata 检查、只读 GET，无文件路径映射。带会话路径的顶层页面导航可从外部链接进入；state 数据仍拒绝跨站访问。图片方式隔离 SVG，CSP 禁止额外脚本/资源和 iframe 嵌入。详情和实际验收见 [REQ-15 扩展报告](extensions/live-preview.md)。
+
+## 发布后 clear 显示意图（ADR-007）
+
+CommandFactory 注册 ClearCommand；Command 的 clearsDisplay 默认为 false，ClearCommand 通过多态覆写为 true。控制器仅在零参数校验成功后返回显示意图，Repl 仅在交互模式执行 ANSI 清屏并恢复提示符。Main 以 stdin/stdout 均为 TTY 判断交互模式，避免重定向输出被清屏码污染。ClearCommand 不接触 EditorSession，故不会更改文件路径、文档版本和历史，也不会触发预览内容更新。没有新增工厂以外的命令名称判断，核心不依赖终端 IO。

@@ -8,12 +8,15 @@ export class CliController {
     private readonly commands = new CommandFactory(),
     private readonly tokenizer = new Tokenizer(),
   ) {}
-  async execute(line: string): Promise<{ lines: readonly string[]; failed: boolean }> {
+  async execute(
+    line: string,
+  ): Promise<{ lines: readonly string[]; failed: boolean; clearDisplay?: boolean }> {
     try {
       const [name, ...arguments_] = this.tokenizer.parse(line);
       if (!name) return { lines: [], failed: false };
-      const lines = await this.commands.create(name.value, arguments_).execute(this.session);
-      return { lines, failed: false };
+      const command = this.commands.create(name.value, arguments_);
+      const lines = await command.execute(this.session);
+      return { lines, failed: false, ...(command.clearsDisplay ? { clearDisplay: true } : {}) };
     } catch (error) {
       const message = error instanceof Error ? error.message : 'unexpected failure';
       return { lines: [`error: ${message.replace(/[\r\n\u2028\u2029]/g, ' ')}`], failed: true };

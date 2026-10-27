@@ -1,0 +1,9 @@
+sourceCommit: 216945367ec5e35af4b5f2cd538b3dd58def8ad4
+node: v22.23.4
+
+added 110 packages, and audited 111 packages in 3s
+
+38 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

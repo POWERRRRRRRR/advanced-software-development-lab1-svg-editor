@@ -7,12 +7,17 @@ import { History } from './History.js';
 export class EditorSession {
   #document: SvgDocument | undefined;
   #path: string | undefined;
+  #revision = 0;
   readonly #history = new History();
   constructor(
     private readonly repository: DocumentRepository,
     private readonly presenter: DocumentPresenter,
   ) {}
 
+  /** Changes only after a successful document replacement; queries and save are neutral. */
+  get revision(): number {
+    return this.#revision;
+  }
   get document(): SvgDocument {
     return this.current().clone();
   }
@@ -22,6 +27,7 @@ export class EditorSession {
   initialize(width = 800, height = 600): readonly string[] {
     const document = new SvgDocument(width, height);
     this.#document = document;
+    this.#revision++;
     this.#path = undefined;
     this.#history.reset();
     return [`canvas ${width}x${height} created`];
@@ -30,6 +36,7 @@ export class EditorSession {
     const draft = this.current().clone();
     draft.resize(width, height);
     this.#document = draft;
+    this.#revision++;
     this.#history.reset();
     return [`canvas resized to ${width}x${height}`];
   }
@@ -38,6 +45,7 @@ export class EditorSession {
     loaded.document.validate();
     const document = loaded.document.clone();
     this.#document = document;
+    this.#revision++;
     this.#path = path;
     this.#history.reset();
     return [...loaded.warnings, `read ${path} (${document.count} elements)`];
@@ -57,6 +65,7 @@ export class EditorSession {
     draft.validate();
     command.capture(before, draft, summary);
     this.#document = draft;
+    this.#revision++;
     this.#history.record(command);
     return [summary];
   }
@@ -64,12 +73,14 @@ export class EditorSession {
     this.current();
     const result = this.#history.undo();
     this.#document = result.document;
+    this.#revision++;
     return [result.output];
   }
   redo(): readonly string[] {
     this.current();
     const result = this.#history.redo();
     this.#document = result.document;
+    this.#revision++;
     return [result.output];
   }
   tree(id?: string): readonly string[] {

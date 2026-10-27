@@ -10,5 +10,9 @@ export abstract class Command {
     if (this.args.length < min || this.args.length > max)
       throw new Error('invalid arguments. use help for syntax');
   }
+  /** Presentation intent only; adapters decide whether/how to clear their display. */
+  get clearsDisplay(): boolean {
+    return false;
+  }
   abstract execute(session: EditorSession): Promise<readonly string[]>;
 }

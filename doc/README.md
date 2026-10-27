@@ -146,3 +146,11 @@ SvgDocument --> Shapes
 保存采用同目录唯一临时文件、写入并同步、重命名覆盖，保留原文件权限；目标符号链接明确拒绝。首版在 macOS 实际验证，Linux 托管任务因外部环境阻塞未执行。快照和递归树适合本次本地编辑场景，未承诺无限历史、任意规模或任意深度。
 
 完整证据见仓库内需求矩阵、架构/ADR、缺陷、工程日志、验证报告、发布与复盘，以及 engineering/evidence 的原始数据和截图。仓库为私有，提交时须由所有者给老师或助教授予访问权限。
+
+## 课程发布后的可选扩展
+
+课程交付仍以 `final`（1d6b3fd）为准。后续 `feat/live-preview` 分支新增只读浏览器实时预览，通过 `npm run preview` 启动，无需先 save；不移动课程标签。设计、测试、实际浏览器验收和版本证据见 [扩展报告](engineering/extensions/live-preview.md)，该扩展不属于上文课程基线的 63 项测试结论。
+
+同一扩展分支随后增加 `clear`，仅清理终端显示，不改变画布、文件路径、预览或撤销重做历史；具体行为与验证见 [clear 扩展报告](engineering/extensions/cli-clear.md)。课程 final 标签仍保持原样。
+
+用户试用后授权将扩展合入 main，冻结为独立版本 `v0.2.0`；当前 CLI/npm 版本同步为 0.2.0。课程提交仍可通过 `final` 查看 0.1.0。具体版本范围、候选验收和冻结定位见 [发布记录](engineering/release.md) 与 [变更说明](../CHANGELOG.md)。

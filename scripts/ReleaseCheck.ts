@@ -32,7 +32,7 @@ export class ReleaseCheck {
   }
   static async run(): Promise<void> {
     const source = process.cwd();
-    const destination = resolve('doc/engineering/evidence');
+    const destination = resolve(process.env.RELEASE_EVIDENCE_DIR ?? 'doc/engineering/evidence');
     await mkdir(destination, { recursive: true });
     const checkout = await mkdtemp(join(tmpdir(), 'lab1-release-'));
     const commit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
@@ -76,11 +76,23 @@ export class ReleaseCheck {
           header,
           'init 200 100\ncreate rect r 1 2 3 4 red\nmove r 10 20\nundo\nredo\nsave release-smoke.svg\ntree\n',
         );
+        const previewOutput = await this.capture(
+          node,
+          ['dist/bootstrap/Main.js', '--preview'],
+          checkout,
+          env,
+          join(destination, label + '-preview-compiled.log'),
+          header,
+          'init 200 100\ncreate circle c 20 30 10 red\n',
+        );
+        assert.match(previewOutput, /http:\/\/127\.0\.0\.1:\d+\/[a-f0-9]+\//);
+        assert.match(previewOutput, /circle#c created/);
         results.push({
           node: version,
           check: 'passed',
           tests: testCount,
           compiledCli: 'passed',
+          compiledPreview: 'passed',
           log: label + '.log',
         });
         console.log(version + ': install/check/compiled smoke passed for ' + commit);

@@ -63,3 +63,17 @@ RISK-001：[托管运行 39943255667](https://github.com/POWERRRRRRRR/advanced-s
 ## 已知边界
 
 支持子集和歧义处理以需求矩阵为准。未实现旋转/非等比缩放/path/tspan/外部 CSS/相对长度/非默认 preserveAspectRatio 等；遇到相关输入明确失败。保存目标符号链接拒绝。快照与递归树未承诺任意规模、无限历史或任意深度。未做多人协同、插件加载或 GUI 验收，因为不属于本阶段。
+
+## 发布后实时预览扩展验证（2026-10-27）
+
+以上 63 项与既有 evidence 文件保留为 final 基线证据。feat/live-preview 候选提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 新增 5 项集成测试，Node 22.23.4 / 24.22.1 干净检出均通过全部 68 项及编译预览入口冒烟；真实 Chrome 检查无需 save 的显示、移动、undo/redo、尺寸切换、退出断线。独立证据目录 [evidence/live-preview](evidence/live-preview/clean-checkout.json)，完整 [扩展验收报告](extensions/live-preview.md)。不替换课程 final，不声称托管 CI 或未验证浏览器通过。
+
+## clear 扩展验证（2026-10-27）
+
+候选 824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b 新增 3 项 clear 行为测试，总计 71 项。Node 22.23.4/24.22.1 在独立干净 clone 中全部通过 check 与编译入口冒烟；实际 PTY 清屏后 HTTP 预览响应字节相同，redo 正常、额外参数失败不清屏。详见 [clear 报告](extensions/cli-clear.md) 和 [原始运行汇总](evidence/cli-clear/clean-checkout.json)。本次无新增独立人工评审或托管 CI 成功结论。
+
+## v0.2.0 发布候选验证（2026-10-27）
+
+候选 d6209fa14d3825a4090edc12c0e5ef6a1b2df70e 同步 npm/锁文件/CLI 为 0.2.0；独立干净 clone 的 Node 22.23.4/24.22.1 均通过 71/71 测试、类型/规范/格式/构建及普通/预览编译入口。实际日志均显示 svg-editor 0.2.0。见 [汇总](evidence/v0.2.0/clean-checkout.json)、[Node 22](evidence/v0.2.0/node-22.log)、[Node 24](evidence/v0.2.0/node-24.log)。
+
+再次核实托管运行 40533683607：两个 jobs 无步骤，账户付款/额度阻止启动。原始 [jobs](evidence/v0.2.0/hosted-ci-jobs.json) 与 [annotations](evidence/v0.2.0/hosted-ci-annotations.json) 保留。未声称托管 CI 通过；用户试用认可记录为功能验收，不等同于独立代码评审。合并后核对代码/配置与本候选相同，实际冻结提交记录在注解标签 v0.2.0。

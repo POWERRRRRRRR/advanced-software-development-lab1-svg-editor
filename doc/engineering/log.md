@@ -73,3 +73,33 @@ EXP-002：实际运行 XMLParser/XMLBuilder 探针，preserveOrder 保留 g 内�
 ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全新 clone，npm ci 后在 Node 22.23.4 与 24.22.1 都通过 63 项测试、类型/规范/格式/构建及编译入口冒烟；未跳过测试。原始安装和两运行时日志提交到 evidence。
 
 完成根 README 与可独立阅读的课程 doc/README（包含原始需求地址、完整架构/PlantUML、模式、变化点、过程、自查、实际质量证据）、追踪矩阵、验证和发布复盘。AGENTS/CONTRIBUTING 固化后续开发要求。所有功能缺陷已修复，外部 CI 账户风险保持开放。最后仅补文档与证据，发布通过 final 注解标签定位实际提交，不内嵌文档自身哈希。
+
+## 阶段 6：发布后实时预览（2026-10-27）
+
+用户要求提交当前版本、打标签后开分支实现实时预览。实际核对：工作区干净，远端 main 与本地同为 1d6b3fd，远端 final 已指向该提交；无需空提交或重打标签。由 final 创建 feat/live-preview，保留课程版本。先记录 REQ-15、ADR-006 和验收计划，选择只读本机浏览器预览，随后分步实现、验证和集中推送。当前无独立评审人员。
+
+### 实现与首轮验收
+
+新增 EditorSession 只读文档版本、PreviewServer/PreviewPage 和 --preview 启动装配；默认 CLI 不启动 HTTP。新增 5 项集成测试（总计 68），覆盖内存变更、读入、失败/查询/预览对路径历史的隔离、并发请求、304 缓存、只读/跨站边界、编码故障隔离、真实进程 EOF 清理。首轮 npm run check 通过。随后真实 Chrome 打开发现 BUG-004，修复并补 HTTP 回归；最终全套检查结果另记。
+
+真实 PTY + Chrome：空画布提示正确；未执行 save，创建中文/矩形/圆，页面自动显示 800×480 / 5 元素 / 版本 8。move 后版本 9、rect x=180；undo 后版本 10、x=80；失败 move missing 后 redo 成功、版本 11、x=180。切换原尺寸按钮状态正确。Ctrl-C 后进程退出，页面显示断线提示。截图 evidence/live-preview.jpg 为实际浏览器截图。未做独立人工评审，不声称 Safari/Firefox 或 Linux 已验证。
+
+### 最终干净检出验证与自查
+
+从实现提交 216945367ec5e35af4b5f2cd538b3dd58def8ad4 建立独立本地 clone；npm ci 后，Node 22.23.4、24.22.1 的 npm run check 各自通过 68/68 测试、类型/规范/格式/构建，普通及 --preview 编译入口均退出 0。新增 RELEASE_EVIDENCE_DIR 参数将完整安装/检查/冒烟日志归档于 evidence/live-preview，保留 final 历史证据。安装产生依赖安装脚本 allowScripts 提示，但安装与实际构建/检查均成功；没有全局修改安装策略。
+
+完成源码自查：核心依赖约束保持、预览只读、失败渲染隔离、条件请求缓存、退出释放端口；phase_cli_1.md 未修改。没有第二人独立评审。课程 main/final 保持 1d6b3fd；扩展按计划/实现/验收文档分步提交后集中推送。
+
+## 阶段 7：终端 clear（2026-10-27）
+
+用户认可实时预览，要求提交功能并增加仅清理 CLI 显示的 clear。核对实时预览 b526bf8 已与远端一致、草稿 PR #14 已存在；不作空提交。用户手工测试产生 preview-test.svg，保留且不纳入开发提交。REQ-16/ADR-007 定义零参数显示意图，通过命令工厂与多态衔接至 Repl，不操作会话文档或历史；在当前功能分支独立实现、检查后集中推送。
+
+新增 ClearCommand、显示意图传递与交互 Repl 清屏，help 自动包含命令。增加 3 项测试，全套 npm run check 通过 71/71。真实编译入口 PTY 测得 clear 输出清屏序列并重显 svg>；HTTP 预览响应字节不变（revision=4），随后 redo 成功恢复 x=150；clear extra 没有清屏序列，EOF 正常退出。相关需求、ADR、缺陷边界说明、架构与 README 同步更新，无独立人工评审。下一步用候选提交复跑 Node 22/24 干净检出并保存独立证据。
+
+候选 824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b 的独立干净 clone 已在 Node 22.23.4/24.22.1 完成 check（各 71/71）和普通/预览编译入口冒烟。日志保存在 evidence/cli-clear，既有证据不覆盖。最终仅归档文档和证据，再集中推送当前功能分支，并更新草稿 PR #14 的描述以覆盖预览与 clear。main/final 保留，未将用户 preview-test.svg 加入提交，未声称远端 CI 通过。
+
+## 阶段 8：v0.2.0 合并与冻结（2026-10-27）
+
+用户完成手工试用并明确要求推送、将 feat/live-preview 合并 main、创建新标签冻结。核对分支 7651ca0 与远端一致；PR #14 为可合并草稿；main/final 为 1d6b3fd。再次查询最新远端运行 40533683607：Node 22/24 均无 steps，annotations 为账单/额度阻塞。采用既定 ADR-005 本地门槛。先同步 0.2.0 版本、变更记录与发布说明，提交候选并重新运行干净检出验证，再合并与打 v0.2.0。用户 preview-test.svg 保留且不提交，无独立人工代码评审。
+
+候选 d6209fa 的全新本地 clone 已完成 npm ci、Node 22.23.4/24.22.1 全套 check（各 71/71）与普通/预览编译入口冒烟；实际启动输出均为 0.2.0。归档 evidence/v0.2.0，未覆盖历史证据。此次末次提交仅归档验证和发布记录；按用户明确授权将 PR #14 转为可合并状态、保留历史合入 main，再以注解标签 v0.2.0 记录实际冻结提交。发布状态以远端 PR/标签为准。

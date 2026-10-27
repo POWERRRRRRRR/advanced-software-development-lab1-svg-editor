@@ -32,10 +32,12 @@ npm run release:check -- /path/to/node22 /path/to/node24
 
 ReleaseCheck 从当前 HEAD 创建干净本地克隆，npm ci 后执行两版本全套检查与编译产物冒烟，日志输出到 doc/engineering/evidence。VisualCheck 使用全新临时 Chrome profile，保存截图并比较变换前后 PNG 字节；不访问个人浏览器数据。
 
-发布前核对报告、最终提交和交付物，推送 main 与注解标签 final。标签消息记录实际发布 SHA 和验证摘要。final 是课程交付标记；发布后修改另开提交或版本，不移动既有 final。
+首次课程发布创建注解标签 final。后续发布核对报告、最终提交和交付物，合并功能分支至 main，再创建并推送新的版本标签（例如 v0.2.0）。同步 package.json、package-lock.json 根包和 Version.ts 的版本号。标签消息记录实际发布 SHA 和验证摘要。final 是课程交付标记；已发布的 final 和版本标签都不移动，后续修改使用新提交和新版本。
 
 ## 工具与依据
 
 - [Node.js 测试框架](https://nodejs.org/docs/latest-v22.x/api/test.html)
 - [Fast XML Parser](https://github.com/NaturalIntelligence/fast-xml-parser)：节点顺序、实体与 CDATA 的行为必须通过本项目回归验证。
 - [PlantUML 编码](https://plantuml.com/text-encoding)：architecture.puml 是图源；可用 PlantUML 本地重新生成 SVG。本次本机无 Java，图源经在线渲染验证。
+
+发布后扩展使用 `RELEASE_EVIDENCE_DIR=doc/engineering/evidence/<feature>` 运行 release:check，将新的干净检出日志放入独立目录，避免覆盖 final 的原始验收证据。当前脚本同时检查普通和 --preview 编译入口。
