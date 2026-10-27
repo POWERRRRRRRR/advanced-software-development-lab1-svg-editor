@@ -22,3 +22,9 @@
 ## ADR-005：CI 账户阻塞下的验证替代
 
 2026-10-23，已决定。GitHub Actions 因账户付款/消费额度未启动（RISK-001），并非代码检查失败。保留 CI 配置；开发阶段改为本地执行相同 check 并在最终干净检出中实际运行 Node 22/24。此证据不等于远端 CI 成功；发布门槛调整为本地交叉版本通过、远端状态如实披露。账户恢复后可 workflow_dispatch 补跑。
+
+## ADR-006：发布后只读浏览器预览
+
+2026-10-27，已决定。扩展独立于已发布 final，详见 [实施与验收计划](extensions/live-preview.md)。选择 Node HTTP 本机服务 + 浏览器 300ms 串行轮询，替代桌面 GUI、落盘监听和长连接。EditorSession 只提供单调递增的文档版本（成功替换文档后递增），不依赖 HTTP；适配器缓存版本对应 SVG，bootstrap 管理生命周期。预览不调用 save，不修改历史，不新增编辑命令分派。
+
+服务仅接受本机地址、随机会话路径与同源请求，无文件服务和写接口；页面用 img 加载 SVG，避免将用户内容注入页面 DOM。依据 [MDN SVG 图片上下文](https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/SVG_as_an_image) 的脚本/外部资源限制，另设 CSP、禁止缓存及 iframe 嵌入。代价：约 300ms 轮询间隔、每个新文档版本一次完整序列化；不是协作编辑或远程共享服务。
