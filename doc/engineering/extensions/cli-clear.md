@@ -19,3 +19,7 @@
 - 实现候选提交 `824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b` 经全新本地 clone，npm ci 后 Node 22.23.4 / 24.22.1 均通过 check（71/71）及普通/预览编译入口冒烟。最后归档提交仅改文档/证据。
 - 原始证据：[汇总](../evidence/cli-clear/clean-checkout.json)、[安装](../evidence/cli-clear/install.log)、[Node 22](../evidence/cli-clear/node-22.log)、[Node 24](../evidence/cli-clear/node-24.log)。不覆盖课程 final 或前次 live-preview 验证目录。
 - RISK-001 托管 CI 账户阻塞未解决，本地结果不代表 GitHub Actions 已通过。
+
+## 后续冻结
+
+上述分支未合并的描述记录开发当时状态。用户完成试用后明确授权合并 main，并以 v0.2.0 冻结；课程 final 不变。版本候选验证、实际标签定位见 [发布记录](../release.md)。

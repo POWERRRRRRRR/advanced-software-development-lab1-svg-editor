@@ -1,6 +1,6 @@
 # 发布与复盘
 
-## 交付定位
+## 课程 0.1.0 历史交付定位
 
 项目：高级软件开发技术 Lab1 Phase 1，版本 0.1.0。
 
@@ -45,6 +45,16 @@
 
 ## 发布后扩展：feat/live-preview
 
-2026-10-27 新增本机浏览器实时预览；课程 final/main 基线不移动。按本地计划、实现、验收归档分步提交，完成后集中推送功能分支。该扩展尚未合并 main，也没有替换或新建课程交付标签。具体候选代码、68 项回归、Node 22/24 干净检出和真实 Chrome 结果见 [扩展报告](extensions/live-preview.md)。
+2026-10-27 新增本机浏览器实时预览；开发期间课程 final/main 基线不移动。按本地计划、实现、验收归档分步提交，完成后集中推送功能分支。当时尚未合并 main，也未替换课程交付标签；后续 v0.2.0 冻结流程见下。具体候选代码、68 项回归、Node 22/24 干净检出和真实 Chrome 结果见 [扩展报告](extensions/live-preview.md)。
 
-同一功能分支的后续 clear 提交：824b04a。增加仅清理终端显示的 clear，71 项测试和 Node 22/24 干净检出通过，另存 evidence/cli-clear；详情见 [clear 报告](extensions/cli-clear.md)。课程 final 不变，功能分支尚未合并 main。
+同一功能分支的后续 clear 提交：824b04a。增加仅清理终端显示的 clear，71 项测试和 Node 22/24 干净检出通过，另存 evidence/cli-clear；详情见 [clear 报告](extensions/cli-clear.md)。课程 final 不变；当时功能分支尚未合并 main。
+
+## v0.2.0 冻结发布（2026-10-27）
+
+用户实际试用后认可实时预览与 clear，明确授权提交、集中推送、合并功能分支到 main 并打标签冻结。版本号由 0.1.0 升到 0.2.0，更新 package.json/锁文件根包/CLI Version；没有新增依赖。变更说明见 [CHANGELOG](../../CHANGELOG.md)。
+
+发布范围：REQ-15 本机只读浏览器实时预览、REQ-16 仅清屏 clear，以及相应架构/缺陷/测试/验收证据。课程 final 固定 1d6b3fd，新版本使用独立注解标签 v0.2.0。通过 PR #14 合并，保留逐步提交；不 squash/rebase 或改写已发布历史。候选验证完成后再合并和打标签，实际冻结提交以 git show v0.2.0 与 PR 合并记录为准。
+
+当前托管限制经再次核实：Actions 运行 40533683607 的 Node 22/24 jobs 无执行步骤，check annotations 仍提示付款失败/消费额度限制。RISK-001 未解决，使用 ADR-005 本地交叉版本门槛，不声明 CI 成功。用户 preview-test.svg 不纳入版本。
+
+本次版本候选的干净检出验证结果在实际运行后归档至 evidence/v0.2.0；之前的课程、预览和 clear 证据保留。

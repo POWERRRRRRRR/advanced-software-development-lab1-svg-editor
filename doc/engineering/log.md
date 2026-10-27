@@ -97,3 +97,7 @@ ReleaseCheck 从本地提交 1941abbbafe55964d2a9568bec9f6876fedf849a 创建全�
 新增 ClearCommand、显示意图传递与交互 Repl 清屏，help 自动包含命令。增加 3 项测试，全套 npm run check 通过 71/71。真实编译入口 PTY 测得 clear 输出清屏序列并重显 svg>；HTTP 预览响应字节不变（revision=4），随后 redo 成功恢复 x=150；clear extra 没有清屏序列，EOF 正常退出。相关需求、ADR、缺陷边界说明、架构与 README 同步更新，无独立人工评审。下一步用候选提交复跑 Node 22/24 干净检出并保存独立证据。
 
 候选 824b04abafc9c5ea2d9b5e39f69eaa6d2576c96b 的独立干净 clone 已在 Node 22.23.4/24.22.1 完成 check（各 71/71）和普通/预览编译入口冒烟。日志保存在 evidence/cli-clear，既有证据不覆盖。最终仅归档文档和证据，再集中推送当前功能分支，并更新草稿 PR #14 的描述以覆盖预览与 clear。main/final 保留，未将用户 preview-test.svg 加入提交，未声称远端 CI 通过。
+
+## 阶段 8：v0.2.0 合并与冻结（2026-10-27）
+
+用户完成手工试用并明确要求推送、将 feat/live-preview 合并 main、创建新标签冻结。核对分支 7651ca0 与远端一致；PR #14 为可合并草稿；main/final 为 1d6b3fd。再次查询最新远端运行 40533683607：Node 22/24 均无 steps，annotations 为账单/额度阻塞。采用既定 ADR-005 本地门槛。先同步 0.2.0 版本、变更记录与发布说明，提交候选并重新运行干净检出验证，再合并与打 v0.2.0。用户 preview-test.svg 保留且不提交，无独立人工代码评审。

@@ -2,7 +2,7 @@
 
 TypeScript 面向对象 SVG 命令行编辑器，提供六种图形、嵌套容器、全部编辑命令、撤销重做、真实 SVG 读写和常见 SVG 导入规范化。
 
-仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。课程交付定位：`final` 标签；版本：`0.1.0`。
+仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。当前发行版本：`v0.2.0`（实时预览与 clear）。课程交付仍定位于 `final` 标签（0.1.0），标签保持不变。
 
 ## 安装运行
 
@@ -36,7 +36,7 @@ npm start
 
 ## 浏览器实时预览（发布后扩展）
 
-在 `feat/live-preview` 分支运行：
+在 `main` 或冻结标签 `v0.2.0` 对应版本运行：
 
 ```sh
 npm run preview
@@ -100,6 +100,8 @@ npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 导入规范化保留当前外观和容器结构。旋转、非等比缩放、path、外部 CSS、tspan、相对长度与其他未列出的绘制特性明确报错，不静默丢弃。SVG 数字实体、中文、CDATA 和文字空白有回归验证。保存拒绝覆盖符号链接。
 
 快照历史以可靠恢复为目标，每次编辑复制文档。实测 10000 图形的 20 次历史约增加 108 MiB 堆内存；不承诺无限历史或任意规模。结果只代表记录的本机环境。
+
+版本变化见 [CHANGELOG.md](CHANGELOG.md)，冻结验证与已知限制见[发布记录](doc/engineering/release.md)。
 
 ## 文档与示例
 

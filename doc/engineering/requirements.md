@@ -50,3 +50,7 @@
 ### REQ-16：终端 clear（用户新增）
 
 `clear` 无参数，仅清理交互终端显示并重新显示 svg>；无需文档。不改图形、路径、revision、undo/redo 或 IO 屏障，不停止预览。额外参数失败且不清屏；脚本/重定向模式不输出 ANSI 清屏码。保留命令名称在 CommandFactory 唯一分派，具体清屏 IO 在 Repl。实现与验收结果见 [clear 扩展报告](extensions/cli-clear.md)；完成：71 项测试、Node 22/24 干净检出与实际 PTY/HTTP 检查通过。
+
+## 扩展冻结版本
+
+REQ-15/16 随 v0.2.0 发布，用户已实际试用并于 2026-10-27 明确授权合并和打新标签。课程 REQ-12 的 final 不移动；新版本候选验证、合并与注解标签定位见 [发布记录](release.md)。
