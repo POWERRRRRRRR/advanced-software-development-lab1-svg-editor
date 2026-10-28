@@ -1,6 +1,6 @@
 # 高级软件开发技术 · Lab1 个人作业
 
-Git 仓库地址：**<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>**（私有）。版本 `0.1.0`，课程交付标签 **`final`**。
+Git 仓库地址：**<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>**（公开，无需邀请即可访问）。课程基线为 `0.1.0` / **`final`**；当前维护版本为 **`v0.2.1`**。
 
 本项目为 TypeScript 面向对象 SVG CLI 编辑器。原始附件 `phase_cli_1.md` 保留不变；实现全部 19 条命令与六种图形，并按用户确认增加常见 SVG 变换与文字样式兼容。GUI、box 和动态插件加载属于后续阶段。
 
@@ -145,7 +145,7 @@ SvgDocument --> Shapes
 
 保存采用同目录唯一临时文件、写入并同步、重命名覆盖，保留原文件权限；目标符号链接明确拒绝。首版在 macOS 实际验证，Linux 托管任务因外部环境阻塞未执行。快照和递归树适合本次本地编辑场景，未承诺无限历史、任意规模或任意深度。
 
-完整证据见仓库内需求矩阵、架构/ADR、缺陷、工程日志、验证报告、发布与复盘，以及 engineering/evidence 的原始数据和截图。仓库为私有，提交时须由所有者给老师或助教授予访问权限。
+完整证据见仓库内需求矩阵、架构/ADR、缺陷、工程日志、验证报告、发布与复盘，以及 engineering/evidence 的原始数据和截图。仓库已由所有者改为公开，老师可直接查看，无需预先授权。课程平台提交本文件（README.md），代码与历史位于上述 GitHub 仓库。
 
 ## 课程发布后的可选扩展
 
@@ -153,4 +153,6 @@ SvgDocument --> Shapes
 
 同一扩展分支随后增加 `clear`，仅清理终端显示，不改变画布、文件路径、预览或撤销重做历史；具体行为与验证见 [clear 扩展报告](engineering/extensions/cli-clear.md)。课程 final 标签仍保持原样。
 
-用户试用后授权将扩展合入 main，冻结为独立版本 `v0.2.0`；当前 CLI/npm 版本同步为 0.2.0。课程提交仍可通过 `final` 查看 0.1.0。具体版本范围、候选验收和冻结定位见 [发布记录](engineering/release.md) 与 [变更说明](../CHANGELOG.md)。
+用户试用后授权将扩展合入 main，冻结为独立版本 `v0.2.0`；该次 CLI/npm 版本同步为 0.2.0。课程提交仍可通过 `final` 查看 0.1.0。具体版本范围、候选验收和冻结定位见 [发布记录](engineering/release.md) 与 [变更说明](../CHANGELOG.md)。
+
+2026-10-28：仓库已公开，v0.2.1 更新当前访问说明与交付文件取舍；不改课程原文、不移动 final/v0.2.0。历史日志中的私有状态描述保留为当时事实。详见 [公开发布检查记录](engineering/publication-audit.md)。

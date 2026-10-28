@@ -1,3 +1,3 @@
 export class Version {
-  static readonly value = '0.2.0';
+  static readonly value = '0.2.1';
 }
