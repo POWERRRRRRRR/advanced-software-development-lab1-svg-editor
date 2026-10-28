@@ -15,7 +15,7 @@
 | REQ-09 | §2、§4.2         | error 单行、失败不改变文档/路径/历史                 | CliController + EditorSession + FileDocumentRepository | commands.test.ts、svg.test.ts、cli.test.ts | 完成                     |
 | REQ-10 | §2.1             | 封装、多态、一类一文件、两处名称分派                 | 四层 src                                               | architecture.test.ts + 源码自查            | 完成                     |
 | REQ-11 | §1.2             | 架构、图、模式、依赖、变化点、过程和一致性自查       | doc/README.md + engineering                            | 本文件与架构图渲染                         | 完成                     |
-| REQ-12 | §1.1             | 分步历史、私有远端、截止前 final                     | Git 历史与注解标签                                     | 发布阶段创建并推送 final；标签消息记录 SHA | 完成（发布定位见 final） |
+| REQ-12 | §1.1             | 分步历史、远端仓库、截止前 final                     | Git 历史与注解标签                                     | 发布阶段创建并推送 final；标签消息记录 SHA | 完成（发布定位见 final） |
 | REQ-13 | 用户确认         | 平移/正等比缩放/继承/文字样式/viewBox                | adapters/svg                                           | svg.test.ts + 变换前后 PNG 字节一致        | 完成                     |
 | REQ-14 | 用户工程流程要求 | 需求、ADR、实验、缺陷、评审、CI 状态、发布证据       | doc/engineering + CONTRIBUTING + scripts               | 工程记录、PR #7/#10/#11/#12、验证原始日志  | 完成                     |
 
@@ -56,3 +56,7 @@
 REQ-15/16 随 v0.2.0 发布，用户已实际试用并于 2026-10-27 明确授权合并和打新标签。课程 REQ-12 的 final 不移动；新版本候选验证、合并与注解标签定位见 [发布记录](release.md)。
 
 v0.2.0 候选 d6209fa 在 Node 22/24 干净检出通过 71 项检查及编译入口；[原始版本证据](evidence/v0.2.0/clean-checkout.json) 与先前功能验证分别保留。实际冻结 SHA 由 v0.2.0 注解标签记录。
+
+## REQ-17：公开仓库说明与交付审查（2026-10-28）
+
+用户已将仓库设为 PUBLIC。本次更新当前访问说明，修正 REQ-12 将“私有”误列为附件要求的表述；课程原文只要求远端仓库。检查跟踪/忽略/历史文件，保留工程证据与原文，剔除可删除的系统缓存，补充本地产物忽略；新建 v0.2.1，不移动已有标签。清单与实际验证见 [公开发布审查](publication-audit.md)。

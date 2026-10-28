@@ -77,3 +77,9 @@ RISK-001：[托管运行 39943255667](https://github.com/POWERRRRRRRR/advanced-s
 候选 d6209fa14d3825a4090edc12c0e5ef6a1b2df70e 同步 npm/锁文件/CLI 为 0.2.0；独立干净 clone 的 Node 22.23.4/24.22.1 均通过 71/71 测试、类型/规范/格式/构建及普通/预览编译入口。实际日志均显示 svg-editor 0.2.0。见 [汇总](evidence/v0.2.0/clean-checkout.json)、[Node 22](evidence/v0.2.0/node-22.log)、[Node 24](evidence/v0.2.0/node-24.log)。
 
 再次核实托管运行 40533683607：两个 jobs 无步骤，账户付款/额度阻止启动。原始 [jobs](evidence/v0.2.0/hosted-ci-jobs.json) 与 [annotations](evidence/v0.2.0/hosted-ci-annotations.json) 保留。未声称托管 CI 通过；用户试用认可记录为功能验收，不等同于独立代码评审。合并后核对代码/配置与本候选相同，实际冻结提交记录在注解标签 v0.2.0。
+
+## 公开仓库恢复托管检查（2026-10-28）
+
+[运行 40622461090](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/actions/runs/40622461090) 实际验证 db0b43f：Ubuntu 托管 Node 22/24 的 npm ci 和 check 均成功，完整响应见 [public-ci-baseline.json](evidence/v0.2.1/public-ci-baseline.json)。之前 Linux 未验证/账户阻塞的描述属于当时状态，不再代表该已验证基线；保留历史证据，未检查账户账单。v0.2.1 的确切候选和发布提交验证另记。
+
+v0.2.1 候选 61e4a63838e11c94b55a51981b017b83f8220453 的本地 Node 22.23.4/24.22.1 干净检出检查各通过 71/71，编译 CLI/预览入口输出 0.2.1 且退出 0。[汇总](evidence/v0.2.1/clean-checkout.json)、[Node 22](evidence/v0.2.1/node-22.log)、[Node 24](evidence/v0.2.1/node-24.log)。忽略规则、文档链接、原附件一致性、受跟踪文件与历史凭据模式检查结果见 [公开交付审查](publication-audit.md)。

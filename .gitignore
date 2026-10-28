@@ -4,6 +4,15 @@ coverage/
 artifacts/
 .DS_Store
 .env
+.env.*
+!.env.example
 *.tmp
 /flowchart.svg
 /demo.svg
+
+# Local manual-test outputs; curated SVG examples and evidence stay tracked.
+/preview-test.svg
+/release-smoke.svg
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

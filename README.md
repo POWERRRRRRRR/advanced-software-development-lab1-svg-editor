@@ -2,7 +2,7 @@
 
 TypeScript 面向对象 SVG 命令行编辑器，提供六种图形、嵌套容器、全部编辑命令、撤销重做、真实 SVG 读写和常见 SVG 导入规范化。
 
-仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（私有）。当前发行版本：`v0.2.0`（实时预览与 clear）。课程交付仍定位于 `final` 标签（0.1.0），标签保持不变。
+仓库：<https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor>（公开，无需邀请即可查看）。当前发行版本：`v0.2.1`（公开仓库说明与交付文件整理）。课程交付仍定位于 `final` 标签（0.1.0），标签保持不变。
 
 ## 安装运行
 
@@ -36,7 +36,7 @@ npm start
 
 ## 浏览器实时预览（发布后扩展）
 
-在 `main` 或冻结标签 `v0.2.0` 对应版本运行：
+在 `main` 或冻结标签 `v0.2.1` 对应版本运行：
 
 ```sh
 npm run preview
@@ -91,7 +91,7 @@ npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 
 课程 `final` 基线：63 项测试通过；本地干净检出在 Node.js 22.23.4、24.22.1 下验证通过，包含编译入口冒烟。原/规范化变换样例由隔离 Chrome 渲染，PNG 字节完全一致。详细证据见[验证报告](doc/engineering/verification.md)。
 
-**GitHub Actions 状态：账户账单/消费额度阻止任务启动。** CI 配置已提交，不能声称托管 CI 已通过。环境限制与替代验证记录见 ADR-005。
+**GitHub Actions 历史状态：私有仓库阶段曾因账户账单/消费额度无法启动。** 公开后已实际通过 Node 22/24 托管检查（[运行 40622461090，提交 db0b43f](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/actions/runs/40622461090)）。每次发布的具体版本验证以[发布记录](doc/engineering/release.md)为准；历史限制与本地替代验证见 ADR-005。
 
 ## SVG 兼容范围
 
@@ -109,4 +109,4 @@ npm run visual:check    # 需要本地 Chrome；CHROME_BIN 可指定程序路径
 - [需求矩阵](doc/engineering/requirements.md)、[架构与图](doc/engineering/architecture.md)、[ADR](doc/engineering/adr.md)、[缺陷](doc/engineering/defects.md)、[工程日志](doc/engineering/log.md)、[验证报告](doc/engineering/verification.md)、[发布与复盘](doc/engineering/release.md)。
 - [开发流程](CONTRIBUTING.md)；[流程图 SVG](examples/flowchart.svg)、[带变换的原图](examples/transforms.svg)、[规范化结果](examples/transforms-normalized.svg)。
 
-私有仓库的所有者需为老师/助教授予访问权限，评分人员才能查看代码和历史。
+仓库已公开，老师可直接通过链接查看代码、提交历史和标签，无需协作者邀请。课程平台仍需上传 **doc/README.md** 一份（文件名 README.md），不是只推送 GitHub。完整文件取舍见[公开发布检查记录](doc/engineering/publication-audit.md)。
