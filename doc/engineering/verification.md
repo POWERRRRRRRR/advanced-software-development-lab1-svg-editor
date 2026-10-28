@@ -81,3 +81,5 @@ RISK-001：[托管运行 39943255667](https://github.com/POWERRRRRRRR/advanced-s
 ## 公开仓库恢复托管检查（2026-10-28）
 
 [运行 40622461090](https://github.com/POWERRRRRRRR/advanced-software-development-lab1-svg-editor/actions/runs/40622461090) 实际验证 db0b43f：Ubuntu 托管 Node 22/24 的 npm ci 和 check 均成功，完整响应见 [public-ci-baseline.json](evidence/v0.2.1/public-ci-baseline.json)。之前 Linux 未验证/账户阻塞的描述属于当时状态，不再代表该已验证基线；保留历史证据，未检查账户账单。v0.2.1 的确切候选和发布提交验证另记。
+
+v0.2.1 候选 61e4a63838e11c94b55a51981b017b83f8220453 的本地 Node 22.23.4/24.22.1 干净检出检查各通过 71/71，编译 CLI/预览入口输出 0.2.1 且退出 0。[汇总](evidence/v0.2.1/clean-checkout.json)、[Node 22](evidence/v0.2.1/node-22.log)、[Node 24](evidence/v0.2.1/node-24.log)。忽略规则、文档链接、原附件一致性、受跟踪文件与历史凭据模式检查结果见 [公开交付审查](publication-audit.md)。
